@@ -1,5 +1,7 @@
 # Note Creation Challenge
 
+![850shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/c4bdea93-9fb9-4f38-bdac-0f6c6a4e39a9)
+
 ## BackEnd
 
 ### ✨ Technologies Used:
@@ -47,3 +49,9 @@ API documentation is generated using SpringDoc, providing complete documentation
 - Archiving Notes: Option to archive notes for better organization.
 - Global State Management: Zustand provides a centralized state management solution.
 - Responsive Design: Ensures a seamless experience across various devices.
+
+
+https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/65b1aecc-263c-4a0c-b2ce-7614b3c89766
+
+
+![942shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/2181db80-843b-4f69-a63d-e8d280993ce5)

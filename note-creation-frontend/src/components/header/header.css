@@ -1,0 +1,107 @@
+.header {
+  height: 4rem;
+  border-bottom: 1px solid hsl(var(--primary));
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap: 1.5rem;
+}
+
+.header__logo {
+  width: 265px;
+  display: flex;
+  gap: 0.2rem;
+  align-items: center;
+  border-right: 1px solid hsl(var(--primary));
+}
+
+.header__logo h1 {
+  font-size: var(--step-1);
+  font-weight: 700;
+  word-break: keep-all;
+  text-wrap: nowrap;
+}
+
+.header__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  stroke-width: 0.7;
+}
+
+.header__user {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  justify-content: flex-end;
+}
+
+.header__user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.header__user-info small {
+  font-family: 'Roboto', sans-serif;
+}
+
+.header__button {
+  padding: 0.3rem 0.5rem;
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+
+.header__button:hover {
+  background-color: hsl(var(--accent));
+}
+
+.user__icon {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    height: 3.5rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .header__logo {
+    border-right: none;
+    width: 100%;
+  }
+
+  .header__button {
+    padding: 0.2rem 0.4rem;
+    font-size: var(--step--2);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header__user-info {
+    display: none;
+    position: absolute;
+    top: 3.5rem;
+    right: 3.5rem;
+    background-color: hsl(var(--popover));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius) 0 var(--radius) var(--radius);
+    padding: 0.5rem;
+  }
+
+  .header__user {
+    width: auto;
+  }
+
+  .user__icon {
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    cursor: pointer;
+  }
+
+  .header__user:hover .header__user-info {
+    display: flex;
+  }
+}

@@ -3,7 +3,6 @@ package com.challenge.note.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.util.List;
 
 @Getter

@@ -13,12 +13,11 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "roles")
-@EntityListeners(AuditingEntityListener.class)
 public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     @Column(unique = true)
     private String name;
     @ManyToMany(mappedBy = "roles")

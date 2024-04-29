@@ -2,10 +2,13 @@ package com.challenge.note.domain.service;
 
 import com.challenge.note.domain.dto.User.CreateUserDTO;
 import com.challenge.note.domain.dto.User.UpdateUserDTO;
+import com.challenge.note.domain.model.Role;
 import com.challenge.note.domain.model.User;
+import com.challenge.note.domain.repository.RoleRepository;
 import com.challenge.note.domain.repository.UserRepository;
 import com.challenge.note.infra.exceptions.CustomExceptionResponse;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,20 +19,19 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class UserService {
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final RoleRepository roleRepository;
 
     public User createUser(CreateUserDTO createUserDTO) {
         try {
             User newUser = new User(createUserDTO);
             newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+            Role role = roleRepository.findByName("USER").orElseThrow(() -> new EntityNotFoundException("Role 'USER' not found"));
+            newUser.setRoles(List.of(role));
             return userRepository.save(newUser);
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to create user", 500);
@@ -66,6 +68,9 @@ public class UserService {
             if (user != null) {
                 if (updateUserDTO.username() != null) {
                     user.setUsername(updateUserDTO.username());
+                }
+                if (updateUserDTO.email() != null) {
+                    user.setEmail(updateUserDTO.email());
                 }
                 if (updateUserDTO.password() != null) {
                     user.setPassword(passwordEncoder.encode(updateUserDTO.password()));

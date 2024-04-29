@@ -3,7 +3,6 @@ package com.challenge.note.domain.model;
 import com.challenge.note.domain.dto.User.CreateUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -19,7 +18,6 @@ import java.util.stream.Collectors;
 
 @Getter
 @Setter
-@SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -45,6 +43,7 @@ public class User implements UserDetails, Principal {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private List<Role> roles;
+
     @CreatedDate
     @Column(nullable = false, updatable = false)
     private LocalDateTime created_at;
@@ -56,7 +55,10 @@ public class User implements UserDetails, Principal {
 
     public User(CreateUserDTO createUserDTO) {
         this.username = createUserDTO.username();
+        this.email = createUserDTO.email();
         this.password = createUserDTO.password();
+        this.account_locked = false;
+        this.enabled = false;
     }
 
     @Override

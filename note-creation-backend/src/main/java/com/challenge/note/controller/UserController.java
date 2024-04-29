@@ -1,6 +1,5 @@
 package com.challenge.note.controller;
 
-import com.challenge.note.domain.dto.User.CreateUserDTO;
 import com.challenge.note.domain.dto.User.UpdateUserDTO;
 import com.challenge.note.domain.dto.User.UserDetailsDTO;
 import com.challenge.note.domain.model.User;
@@ -21,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("users")
 @Tag(name = "Users", description = "User management")
 public class UserController {
     private final UserService userService;
@@ -29,19 +28,6 @@ public class UserController {
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
-    }
-
-    @PostMapping("/create")
-    @Operation(summary = "Create a new user", description = "Create a new user with name, email and password.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "User created successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetailsDTO.class))),
-            @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
-            @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
-    })
-    public ResponseEntity<UserDetailsDTO> createUser(@RequestBody @Valid CreateUserDTO createUserDTO) {
-        User newUser = userService.createUser(createUserDTO);
-        UserDetailsDTO userDetailsDTO = new UserDetailsDTO(newUser);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userDetailsDTO);
     }
 
     @GetMapping("/all")

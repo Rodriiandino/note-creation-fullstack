@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/categories")
+@RequestMapping("categories")
 @Tag(name = "Categories", description = "Category management")
 public class CategoryController {
     private final CategoryService categoryService;

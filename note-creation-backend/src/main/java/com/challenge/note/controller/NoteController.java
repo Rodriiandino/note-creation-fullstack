@@ -20,7 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/notes")
+@RequestMapping("notes")
 @Tag(name = "Notes", description = "Note management")
 public class NoteController {
 

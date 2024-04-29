@@ -1,10 +1,7 @@
 package com.challenge.note.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -27,4 +24,11 @@ public class TokenEmail {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    public TokenEmail(User user, String generatedToken) {
+        this.user = user;
+        this.token = generatedToken;
+        this.created_at = LocalDateTime.now();
+        this.expires_at = LocalDateTime.now().plusMinutes(15);
+    }
 }

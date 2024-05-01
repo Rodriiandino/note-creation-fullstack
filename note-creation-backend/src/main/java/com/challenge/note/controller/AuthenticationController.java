@@ -3,6 +3,7 @@ package com.challenge.note.controller;
 import com.challenge.note.domain.dto.User.CreateUserDTO;
 import com.challenge.note.domain.dto.User.UserDetailsDTO;
 import com.challenge.note.domain.model.User;
+import com.challenge.note.domain.service.AuthenticationService;
 import com.challenge.note.domain.service.UserService;
 import com.challenge.note.infra.exceptions.CustomError;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Authentication", description = "Authentication management")
 public class AuthenticationController {
 
-    private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
     @Operation(summary = "Create a new user", description = "Create a new user with name, email and password.")
@@ -36,7 +37,7 @@ public class AuthenticationController {
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<UserDetailsDTO> register(@RequestBody @Valid CreateUserDTO createUserDTO) {
-        User newUser = userService.createUser(createUserDTO);
+        User newUser = authenticationService.registerUser(createUserDTO);
         UserDetailsDTO userDetailsDTO = new UserDetailsDTO(newUser);
         return ResponseEntity.status(HttpStatus.CREATED).body(userDetailsDTO);
     }

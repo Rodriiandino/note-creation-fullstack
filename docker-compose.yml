@@ -1,0 +1,30 @@
+services:
+  mail-dev:
+    container_name: mail-dev-nc
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+  postgres:
+    container_name: postgres-sql-nc
+    image: postgres
+    environment:
+      POSTGRES_USER: user_note_creation
+      POSTGRES_PASSWORD: 123456789
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: node_creation_db
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-demo
+    restart: unless-stopped
+
+networks:
+  spring-demo:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

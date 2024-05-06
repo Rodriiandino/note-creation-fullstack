@@ -50,8 +50,7 @@ public class User implements UserDetails, Principal {
 
     @LastModifiedDate
     @Column(insertable = false)
-    private LocalDateTime lastModified_at;
-
+    private LocalDateTime updated_at;
 
     public User(CreateUserDTO createUserDTO) {
         this.username = createUserDTO.username();

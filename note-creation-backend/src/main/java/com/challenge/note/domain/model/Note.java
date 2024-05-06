@@ -46,6 +46,7 @@ public class Note {
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime updated_at;
+
     private boolean archived;
 
     public Note(CreateNoteDTO noteDTO) {

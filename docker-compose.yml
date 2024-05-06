@@ -12,14 +12,14 @@ services:
       POSTGRES_USER: user_note_creation
       POSTGRES_PASSWORD: 123456789
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_DB: node_creation_db
+      POSTGRES_DB: note_creation_db
     volumes:
       - postgres:/data/postgres
     ports:
       - 5432:5432
     networks:
       - spring-demo
-    restart: unless-stopped
+    restart: always
 
 networks:
   spring-demo:

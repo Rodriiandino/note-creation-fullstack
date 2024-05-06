@@ -2,6 +2,8 @@ package com.challenge.note.domain.service;
 
 
 import com.challenge.note.domain.dto.User.CreateUserDTO;
+import com.challenge.note.domain.dto.User.UserAuthDTO;
+import com.challenge.note.domain.dto.auth.AuthenticationResponse;
 import com.challenge.note.domain.model.Role;
 import com.challenge.note.domain.model.TokenEmail;
 import com.challenge.note.domain.model.User;
@@ -10,10 +12,14 @@ import com.challenge.note.domain.repository.TokenRepository;
 import com.challenge.note.domain.repository.UserRepository;
 import com.challenge.note.domain.service.tools.EmailTemplateName;
 import com.challenge.note.infra.exceptions.CustomExceptionResponse;
+import com.challenge.note.infra.security.JwtService;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,6 +36,8 @@ public class AuthenticationService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
     private String activationUrl;
 
     @Transactional
@@ -47,7 +55,14 @@ public class AuthenticationService {
         }
     }
 
-    public void authenticate() {}
+    public AuthenticationResponse authenticate(UserAuthDTO userAuthDTO) {
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(userAuthDTO.username(), userAuthDTO.password())
+        );
+        User user = ((User) auth.getPrincipal());
+        String token = jwtService.getToken(user);
+        return new AuthenticationResponse(token);
+    }
 
     @Transactional
     public void activateAccount() {}

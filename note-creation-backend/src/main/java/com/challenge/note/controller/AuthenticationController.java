@@ -1,7 +1,9 @@
 package com.challenge.note.controller;
 
 import com.challenge.note.domain.dto.User.CreateUserDTO;
+import com.challenge.note.domain.dto.User.UserAuthDTO;
 import com.challenge.note.domain.dto.User.UserDetailsDTO;
+import com.challenge.note.domain.dto.auth.AuthenticationResponse;
 import com.challenge.note.domain.model.User;
 import com.challenge.note.domain.service.AuthenticationService;
 import com.challenge.note.domain.service.UserService;
@@ -42,5 +44,15 @@ public class AuthenticationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(userDetailsDTO);
     }
 
-
+    @PostMapping("/login")
+    @Operation(summary = "Authenticate user", description = "Authenticate user with email and password.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User authenticated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetailsDTO.class))),
+            @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
+    })
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody @Valid UserAuthDTO userAuthDTO) {
+        AuthenticationResponse authenticationResponse = authenticationService.authenticate(userAuthDTO);
+        return ResponseEntity.ok(authenticationResponse);
+    }
 }

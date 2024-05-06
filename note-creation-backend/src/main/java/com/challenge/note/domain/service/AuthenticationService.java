@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -65,7 +66,21 @@ public class AuthenticationService {
     }
 
     @Transactional
-    public void activateAccount() {}
+    public void activateAccount(String token) throws MessagingException {
+        TokenEmail tokenEmail = tokenRepository.findByToken(token)
+                .orElseThrow(() -> new CustomExceptionResponse("Invalid token", 400));
+
+        if (LocalDateTime.now().isAfter(tokenEmail.getExpires_at())) {
+            sendValidationEmail(tokenEmail.getUser());
+            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+        }
+
+        User user = tokenEmail.getUser();
+        user.setEnabled(true);
+        tokenEmail.setValidated_at(LocalDateTime.now());
+        userRepository.save(user);
+        tokenRepository.save(tokenEmail);
+    }
 
     private void sendValidationEmail(User user) throws MessagingException {
         String activationCode = generateAndSaveActivationToken(user);

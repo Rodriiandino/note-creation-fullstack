@@ -60,6 +60,7 @@ public class AuthenticationService {
         Authentication auth = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userAuthDTO.username(), userAuthDTO.password())
         );
+
         User user = ((User) auth.getPrincipal());
         String token = jwtService.getToken(user);
         return new AuthenticationResponse(token);
@@ -72,7 +73,7 @@ public class AuthenticationService {
 
         if (LocalDateTime.now().isAfter(tokenEmail.getExpires_at())) {
             sendValidationEmail(tokenEmail.getUser());
-            throw new RuntimeException("Activation token has expired. A new token has been send to the same email address");
+            throw new CustomExceptionResponse("Activation token has expired. A new token has been send to the same email address", 400);
         }
 
         User user = tokenEmail.getUser();

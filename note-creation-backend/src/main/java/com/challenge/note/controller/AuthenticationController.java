@@ -6,7 +6,6 @@ import com.challenge.note.domain.dto.User.UserDetailsDTO;
 import com.challenge.note.domain.dto.auth.AuthenticationResponse;
 import com.challenge.note.domain.model.User;
 import com.challenge.note.domain.service.AuthenticationService;
-import com.challenge.note.domain.service.UserService;
 import com.challenge.note.infra.exceptions.CustomError;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -45,7 +44,7 @@ public class AuthenticationController {
     @PostMapping("/login")
     @Operation(summary = "Authenticate user", description = "Authenticate user with email and password.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User authenticated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetailsDTO.class))),
+            @ApiResponse(responseCode = "200", description = "User authenticated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthenticationResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -55,8 +54,13 @@ public class AuthenticationController {
     }
 
     @GetMapping("/activate-account")
+    @Operation(summary = "Activate account", description = "Activate account with token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Account activated successfully."),
+            @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
+    })
     public void confirm(@RequestParam String token) throws MessagingException {
         authenticationService.activateAccount(token);
     }
-
 }

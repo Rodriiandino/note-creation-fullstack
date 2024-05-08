@@ -2,13 +2,21 @@ package com.challenge.note.domain.dto.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record CreateUserDTO(
-        @NotBlank(message = "The username field is required") @Size(min = 3, message = "The username must be at least 3 characters long")
+        @NotBlank(message = "The username field is required")
+        @Size(min = 3, message = "The username must be at least 3 characters long")
+        @NotNull(message = "The username field is required")
         String username,
-        @NotBlank(message = "The password field is required") @Size(min = 7, message = "The password must be at least 7 characters long")
+        @NotBlank(message = "The password field is required")
+        @Size(min = 7, message = "The password must be at least 7 characters long")
+        @NotNull(message = "The password field is required")
         String password,
-        @NotBlank(message = "The email field is required") @Email(message = "Invalid email address") String email
+        @NotBlank(message = "The email field is required")
+        @Email(message = "Invalid email address")
+        @NotNull(message = "The email field is required")
+        String email
         ) implements UserDTO {
 }

@@ -1,10 +1,12 @@
 package com.challenge.note.infra.exceptions;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 
 import java.util.List;
 
 @Getter
+@JsonInclude(JsonInclude.Include.NON_NULL) // Ignore null fields when serializing
 public class CustomError {
     private final String message;
     private final int status;

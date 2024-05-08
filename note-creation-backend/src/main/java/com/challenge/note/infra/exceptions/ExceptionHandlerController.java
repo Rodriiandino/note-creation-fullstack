@@ -1,10 +1,16 @@
 package com.challenge.note.infra.exceptions;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.List;
 
 @RestControllerAdvice
 public class ExceptionHandlerController {
@@ -21,4 +27,35 @@ public class ExceptionHandlerController {
         CustomError error = new CustomError(errorMessage, ex.getStatus());
         return ResponseEntity.status(ex.getStatus()).body(error);
     }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<CustomError> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        List<FieldError> errors = ex.getBindingResult().getFieldErrors().stream()
+                .map(error -> new FieldError(error.getField(), error.getDefaultMessage()))
+                .toList();
+        CustomError error = new CustomError(errors, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<CustomError> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        String errorMessage = ex.getMessage();
+        CustomError error = new CustomError(errorMessage, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<CustomError> handleBadCredentialsException(BadCredentialsException ex) {
+        String errorMessage = ex.getMessage();
+        CustomError error = new CustomError(errorMessage, HttpStatus.UNAUTHORIZED.value());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<CustomError> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+        String errorMessage = "Invalid request body or request body is missing";
+        CustomError error = new CustomError(errorMessage, HttpStatus.BAD_REQUEST.value());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
 }

@@ -33,6 +33,7 @@ public class AuthenticationController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "User created successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetailsDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "409", description = "Conflict.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<UserDetailsDTO> register(@RequestBody @Valid CreateUserDTO createUserDTO) {
@@ -46,6 +47,7 @@ public class AuthenticationController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User authenticated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthenticationResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "401", description = "Unauthorized.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<AuthenticationResponse> login(@RequestBody @Valid UserAuthDTO userAuthDTO) {

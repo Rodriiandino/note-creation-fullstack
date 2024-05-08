@@ -16,7 +16,8 @@ import com.challenge.note.infra.security.JwtService;
 import jakarta.mail.MessagingException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -51,10 +52,19 @@ public class AuthenticationService {
             userRepository.save(newUser);
             sendValidationEmail(newUser);
             return newUser;
-        } catch (DataAccessException | MessagingException e) {
-            throw new CustomExceptionResponse("Error to create user", 500);
+        } catch (DataIntegrityViolationException e) {
+            if (e.getMessage().contains("users_username_key")) {
+                throw new CustomExceptionResponse("The username is already in use", HttpStatus.CONFLICT.value());
+            } else if (e.getMessage().contains("users_email_key")) {
+                throw new CustomExceptionResponse("The email is already in use", HttpStatus.CONFLICT.value());
+            } else {
+                throw new CustomExceptionResponse("Error while creating the user", HttpStatus.INTERNAL_SERVER_ERROR.value());
+            }
+        } catch (MessagingException e) {
+            throw new CustomExceptionResponse("Error while sending the activation email", HttpStatus.INTERNAL_SERVER_ERROR.value());
         }
     }
+
 
     public AuthenticationResponse authenticate(UserAuthDTO userAuthDTO) {
         Authentication auth = authenticationManager.authenticate(
@@ -66,14 +76,14 @@ public class AuthenticationService {
         return new AuthenticationResponse(token);
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = CustomExceptionResponse.class) // No rollback when token is expired and a new one is sent
     public void activateAccount(String token) throws MessagingException {
         TokenEmail tokenEmail = tokenRepository.findByToken(token)
                 .orElseThrow(() -> new CustomExceptionResponse("Invalid token", 400));
 
         if (LocalDateTime.now().isAfter(tokenEmail.getExpires_at())) {
             sendValidationEmail(tokenEmail.getUser());
-            throw new CustomExceptionResponse("Activation token has expired. A new token has been send to the same email address", 400);
+            throw new CustomExceptionResponse("Activation token has expired. A new token has been send to the same email address", HttpStatus.BAD_REQUEST.value());
         }
 
         User user = tokenEmail.getUser();

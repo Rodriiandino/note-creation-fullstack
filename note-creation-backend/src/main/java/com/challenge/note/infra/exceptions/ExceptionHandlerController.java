@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
+import org.springframework.security.authentication.LockedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -52,10 +54,31 @@ public class ExceptionHandlerController {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<CustomError> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
+    public ResponseEntity<CustomError> handleHttpMessageNotReadableException() {
         String errorMessage = "Invalid request body or request body is missing";
         CustomError error = new CustomError(errorMessage, HttpStatus.BAD_REQUEST.value());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(LockedException.class)
+    public ResponseEntity<CustomError> handleLockedException(LockedException ex) {
+        String errorMessage = ex.getMessage();
+        CustomError error = new CustomError(errorMessage, HttpStatus.UNAUTHORIZED.value());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
+
+    @ExceptionHandler(DisabledException.class)
+    public ResponseEntity<CustomError> handleDisabledException(DisabledException ex) {
+        String errorMessage = ex.getMessage();
+        CustomError error = new CustomError(errorMessage, HttpStatus.UNAUTHORIZED.value());
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<CustomError> handleException(Exception ex) {
+        String errorMessage = ex.getMessage();
+        CustomError error = new CustomError(errorMessage, HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
 
 }

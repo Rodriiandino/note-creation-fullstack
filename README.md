@@ -14,6 +14,7 @@
 - Version control with Flyway.
 - Lombok for automatic methods and constructors.
 - PasswordEncoder with BCryptPasswordEncoder
+- JJWT API for authorization
 - Docker for mailDev image and the relatiional database PostgreSQL
 
 ### 🚀 Features:

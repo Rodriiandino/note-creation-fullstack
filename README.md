@@ -24,11 +24,18 @@
 - Exception handling and validation for robust error management.
 - Stateless RESTful API design for scalability and security.
 - Password encoder for user authentication and security enhancement.
-- JWT (JSON Web Token) authorization for secure communication. "TODO"
+- JWT (JSON Web Token) authorization for secure communication.
+- Login & Registration with Email validation
 
 ### 🌎 DataBase
 
+![Captura de pantalla 2024-05-09 122826](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/a4fb190e-0c45-4562-bb11-3945e779686e)
+
 ### 📄 Documentation:
+
+![Captura de pantalla 2024-05-09 122144](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/eff18948-7cef-4940-9a63-63dea1d8e1ec)
+
+![Captura de pantalla 2024-05-09 122216](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/0fb6159b-3889-4c19-a027-e6e40e52c951)
 
 API documentation is generated using SpringDoc, providing complete documentation for API endpoints and requests.
 

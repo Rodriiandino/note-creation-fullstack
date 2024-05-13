@@ -102,7 +102,7 @@ export default function HeaderSection() {
       {showFilter && (
         <div className='categories__modal'>
           <button onClick={handleFilterClick}>All</button>
-          {categories.map(category => (
+          {categories?.map(category => (
             <button key={category.id} onClick={handleFilterClick}>
               {category.name}
             </button>

@@ -26,14 +26,6 @@
   font-size: var(--step-2);
 }
 
-.aside__form {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  padding: 0.5rem;
-  gap: 1rem;
-}
-
 .aside__form-group {
   display: flex;
   width: 100%;

@@ -46,14 +46,14 @@
   font-family: 'Roboto', sans-serif;
 }
 
-.header__button {
-  padding: 0.3rem 0.5rem;
-  font-size: var(--step--1);
-  font-weight: 700;
+.header__user-links {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
 }
-
-.header__button:hover {
-  background-color: hsl(var(--accent));
+.header__link {
+  transition: background-color 0.2s;
 }
 
 .user__icon {
@@ -76,9 +76,7 @@
     padding: 0.2rem 0.4rem;
     font-size: var(--step--2);
   }
-}
 
-@media screen and (max-width: 480px) {
   .header__user-info {
     display: none;
     position: absolute;
@@ -103,5 +101,9 @@
 
   .header__user:hover .header__user-info {
     display: flex;
+  }
+
+  .header__user-links {
+    flex-direction: column;
   }
 }

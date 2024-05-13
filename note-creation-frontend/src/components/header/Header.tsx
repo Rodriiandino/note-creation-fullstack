@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import './header.css'
 import { IconUser, IconBook } from './icon.header'
 
@@ -8,13 +9,20 @@ export default function Header() {
         <IconBook className='header__icon' />
         <h1>My Notes</h1>
       </div>
-      {/* <div className='header__user'>
+      <div className='header__user'>
         <div className='header__user-info'>
           <small>Sign in to save your notes</small>
-          <button className='header__button'>Sign in</button>
+          <div className='header__user-links'>
+            <Link className='header__link' to='login'>
+              Sign in
+            </Link>
+            <Link className='header__link' to='register'>
+              Register
+            </Link>
+          </div>
         </div>
         <IconUser className='header__icon user__icon' />
-      </div> */}
+      </div>
     </header>
   )
 }

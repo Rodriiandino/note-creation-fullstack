@@ -112,6 +112,30 @@ button:hover {
   background: hsl(var(--accent));
 }
 
+a {
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+  font-size: var(--step--1);
+  font-weight: 700;
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  color: hsl(var(--text));
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+a:hover {
+  background-color: hsl(var(--accent));
+}
+
+form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0.5rem;
+  gap: 1rem;
+}
+
 input {
   background: hsl(var(--background));
   color: hsl(var(--text));

@@ -3,7 +3,7 @@ import '../styles/account.css'
 
 export default function Register() {
   return (
-    <div className='account'>
+    <section className='account'>
       <form className='account__form'>
         <h1>Register</h1>
         <div className='account__form-group '>
@@ -23,6 +23,6 @@ export default function Register() {
           Already have an account? <Link to='/login'>Login</Link>
         </small>
       </form>
-    </div>
+    </section>
   )
 }

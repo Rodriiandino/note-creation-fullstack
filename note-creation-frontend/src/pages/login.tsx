@@ -3,7 +3,7 @@ import '../styles/account.css'
 
 export default function Login() {
   return (
-    <div className='account'>
+    <section className='account'>
       <form className='account__form'>
         <h1>Login</h1>
         <div className='account__form-group '>
@@ -19,6 +19,6 @@ export default function Login() {
           Don't have an account? <Link to='/register'>Register</Link>
         </small>
       </form>
-    </div>
+    </section>
   )
 }

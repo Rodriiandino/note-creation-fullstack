@@ -7,7 +7,7 @@ export default async function fetchApi({
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
   body?: any
 }) {
-  const url = 'http://localhost:8080/api' + path
+  const url = 'http://localhost:8080/api/v1' + path
 
   const options = {
     method,
@@ -21,10 +21,10 @@ export default async function fetchApi({
     const response = await fetch(url, options)
     if (!response.ok) {
       const error = await response.json()
-      throw new Error(error.errors[0].defaultMessage || error.getMessage)
+      throw error
     }
     return response.json()
   } catch (error) {
-    console.error(error)
+    throw error
   }
 }

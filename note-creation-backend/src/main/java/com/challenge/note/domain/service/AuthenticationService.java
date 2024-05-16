@@ -40,7 +40,7 @@ public class AuthenticationService {
     private final RoleRepository roleRepository;
     private final AuthenticationManager authenticationManager;
     private final JwtService jwtService;
-    private String activationUrl;
+    private final String activationUrl = "http://localhost:5173/activate-account";
 
     @Transactional
     public User registerUser(CreateUserDTO createUserDTO) {

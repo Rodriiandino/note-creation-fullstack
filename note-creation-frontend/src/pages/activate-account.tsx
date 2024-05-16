@@ -1,9 +1,19 @@
+import LinkBack from '../components/link-back'
 import '../styles/account.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { error } from '../types/error-type'
+import fetchApi from '../utils/fetch-api'
 
 export default function ActivateAccount() {
   const [code, setCode] = useState<string[]>(['', '', '', '', '', ''])
   const [currentInput, setCurrentInput] = useState(0)
+  const [error, setError] = useState<error>({
+    message: '',
+    status: 0,
+    fieldErrors: []
+  })
+  const [success, setSuccess] = useState('')
+
   const revalidate = /^[0-9]*$/
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -81,11 +91,37 @@ export default function ActivateAccount() {
     }
   }
 
+  useEffect(() => {
+    const firstInput =
+      document.querySelector<HTMLInputElement>('.activate__input')
+    if (firstInput) {
+      firstInput.focus()
+    }
+  }, [])
+
+  const handleCode = async () => {
+    setError({ message: '', status: 0, fieldErrors: [] })
+    setSuccess('')
+    const codeString = code.join('')
+
+    try {
+      await fetchApi({
+        path: '/auth/activate-account?token=' + codeString
+      })
+      setSuccess('Account activated')
+    } catch (error: any) {
+      setError(error)
+    }
+  }
+
   return (
     <section className='account'>
       <div className='account__activate'>
-        <h1>Activate Account</h1>
-        <p>Check your email to activate your account.</p>
+        <LinkBack path='/login' />
+        <header>
+          <h1>Activate Account</h1>
+          <p>Check your email to activate your account.</p>
+        </header>
         <div className='account__activate-code'>
           <input
             type='text'
@@ -150,6 +186,21 @@ export default function ActivateAccount() {
             disabled={currentInput !== 5}
           />
         </div>
+        <footer>
+          <button disabled={code.join('').length < 6} onClick={handleCode}>
+            Activate
+          </button>
+        </footer>
+        {error.status !== 0 && (
+          <div className='account__error'>
+            {error?.fieldErrors?.length > 0
+              ? error.fieldErrors.map((fieldError, index) => (
+                  <div key={index}>{fieldError.message}</div>
+                ))
+              : error.message}
+          </div>
+        )}
+        {success && <div className='account__success'>{success}</div>}
       </div>
     </section>
   )

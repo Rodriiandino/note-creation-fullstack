@@ -113,6 +113,12 @@ button:hover {
   background: hsl(var(--accent));
 }
 
+button:disabled {
+  background: hsl(var(--muted));
+  color: hsl(var(--text));
+  cursor: not-allowed;
+}
+
 a {
   padding: 0.2rem 0.5rem;
   text-align: center;

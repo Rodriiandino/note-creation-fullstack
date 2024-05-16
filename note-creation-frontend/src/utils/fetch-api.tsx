@@ -23,6 +23,11 @@ export default async function fetchApi({
       const error = await response.json()
       throw error
     }
+
+    if (response.status === 204) {
+      return
+    }
+
     return response.json()
   } catch (error) {
     throw error

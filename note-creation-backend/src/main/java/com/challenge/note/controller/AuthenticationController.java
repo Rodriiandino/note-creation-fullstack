@@ -58,11 +58,12 @@ public class AuthenticationController {
     @GetMapping("/activate-account")
     @Operation(summary = "Activate account", description = "Activate account with token.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Account activated successfully."),
+            @ApiResponse(responseCode = "204", description = "Account activated successfully."),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public void confirm(@RequestParam String token) throws MessagingException {
+    public ResponseEntity<Void> activateAccount(@RequestParam String token) throws MessagingException {
         authenticationService.activateAccount(token);
+        return ResponseEntity.noContent().build();
     }
 }

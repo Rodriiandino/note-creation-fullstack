@@ -13,10 +13,16 @@
 }
 
 .account__form {
+  position: relative;
   max-width: 30rem;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
   background-color: hsl(var(--background));
+}
+
+.account__form h1 {
+  text-align: center;
+  font-size: var(--step-1);
 }
 
 .account__form button {
@@ -50,6 +56,7 @@
 }
 
 .account__activate {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -60,9 +67,11 @@
   border-radius: var(--radius);
   background-color: hsl(var(--background));
   padding: 1rem;
+  gap: 0.5rem;
 }
 
 .account__activate h1 {
+  text-align: center;
   font-size: var(--step-1);
 }
 
@@ -70,6 +79,21 @@
   font-size: var(--step-0);
   text-align: center;
   opacity: 0.8;
+}
+
+.account__back {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  border: none;
+}
+
+.account__back svg {
+  color: hsl(var(--primary));
+}
+
+.account__activate button {
+  padding: 0.5rem 1rem;
 }
 
 .account__activate-code {
@@ -104,6 +128,19 @@
 
 .activate__input:focus {
   z-index: 1;
+}
+
+.account__error {
+  font-size: var(--step--1);
+  color: hsl(var(--danger));
+  text-align: center;
+  font-family: 'roboto', sans-serif;
+}
+
+.account__success {
+  font-size: var(--step--1);
+  text-align: center;
+  font-family: 'roboto', sans-serif;
 }
 
 @media screen and (max-width: 768px) {

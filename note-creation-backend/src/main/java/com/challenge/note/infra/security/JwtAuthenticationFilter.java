@@ -3,6 +3,7 @@ package com.challenge.note.infra.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -68,6 +69,22 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         {
             return authHeader.substring(7);
         }
+
+        Cookie[] cookies = request.getCookies();
+
+        if(cookies!=null)
+        {
+            for(Cookie cookie: cookies)
+            {
+                if(cookie.getName().equals("token"))
+                {
+                    return cookie.getValue();
+                }
+            }
+        }
+
+
         return null;
     }
+
 }

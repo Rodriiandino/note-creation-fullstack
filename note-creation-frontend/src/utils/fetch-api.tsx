@@ -1,11 +1,13 @@
 export default async function fetchApi({
   path,
   method = 'GET',
-  body
+  body,
+  credentials = 'include'
 }: {
   path: string
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
   body?: any
+  credentials?: RequestCredentials
 }) {
   const url = 'http://localhost:8080/api/v1' + path
 
@@ -14,7 +16,12 @@ export default async function fetchApi({
     headers: {
       'Content-Type': 'application/json'
     },
+    credentials,
     body: JSON.stringify(body)
+  }
+
+  if (method === 'GET' || method === 'DELETE') {
+    delete (options as { body?: any }).body
   }
 
   try {

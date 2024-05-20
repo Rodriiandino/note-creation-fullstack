@@ -27,3 +27,13 @@ export const useStore = create<StoreType>(set => ({
   cardEditing: null,
   setCardEditing: cardEditing => set({ cardEditing })
 }))
+
+type AuthStoreType = {
+  isAuth: boolean
+  setIsAuth: (isAuth: boolean) => void
+}
+
+export const useAuthStore = create<AuthStoreType>(set => ({
+  isAuth: false,
+  setIsAuth: isAuth => set({ isAuth })
+}))

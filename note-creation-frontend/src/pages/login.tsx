@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { error } from '../types/error-type'
 import fetchApi from '../utils/fetch-api'
 import LinkBack from '../components/link-back'
+import { useNavigate } from 'react-router-dom'
+import { useAuthStore } from '../context/useContext'
 
 export default function Login() {
   const [loginUser, setLoginUser] = useState<login>({
@@ -17,7 +19,9 @@ export default function Login() {
     fieldErrors: []
   })
 
+  const { setIsAuth } = useAuthStore()
   const [success, setSuccess] = useState('')
+  const navigate = useNavigate()
 
   const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target
@@ -39,6 +43,8 @@ export default function Login() {
         username: '',
         password: ''
       })
+      setIsAuth(true)
+      navigate('/')
     } catch (error: any) {
       setError(error)
     }

@@ -16,7 +16,6 @@ export default function CreateNoteForm() {
   const [card, setCard] = useState<CreateCard>({
     title: '',
     content: '',
-    userId: 1,
     categories: []
   })
   const [cardEdit, setCardEdit] = useState<UpdateCard>({
@@ -57,7 +56,6 @@ export default function CreateNoteForm() {
     setCard({
       title: '',
       content: '',
-      userId: 1,
       categories: []
     })
 

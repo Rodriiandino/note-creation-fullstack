@@ -18,7 +18,6 @@ export interface CardType {
 export interface CreateCard {
   title: string
   content: string
-  userId: number
   categories: string[]
 }
 

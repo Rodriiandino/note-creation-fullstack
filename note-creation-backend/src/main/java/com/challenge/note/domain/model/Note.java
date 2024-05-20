@@ -53,18 +53,14 @@ public class Note {
         this.title = noteDTO.title();
         this.content = noteDTO.content();
         this.archived = false;
-        User user = new User();
-        user.setId(noteDTO.userId());
-        this.user = user;
+        this.user = new User();
     }
 
     public Note(CreateNoteDTO noteDTO, Set<Category> categories) {
         this.title = noteDTO.title();
         this.content = noteDTO.content();
         this.archived = false;
-        User user = new User();
-        user.setId(noteDTO.userId());
-        this.user = user;
+        this.user = new User();
         this.categories = categories;
     }
 }

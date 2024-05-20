@@ -12,6 +12,8 @@ import com.challenge.note.infra.exceptions.CustomExceptionResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,9 +38,15 @@ public class NoteService {
     public Note createNote(CreateNoteDTO noteDTO) {
         try {
             Note note;
-            if (!userRepository.existsById(noteDTO.userId())) {
-                throw new EntityNotFoundException("User not found: " + noteDTO.userId());
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if (authentication == null) {
+                throw new CustomExceptionResponse("User not authenticated", 401);
             }
+
+            String username = authentication.getName();
+            User user = userRepository.findByUsername(username);
+
             if (noteDTO.categories().isEmpty()) {
                 note = new Note(noteDTO);
             } else {
@@ -46,7 +54,7 @@ public class NoteService {
                 Set<Category> categories = mapCategoriesStringToCategory(categoryNames);
                 note = new Note(noteDTO, categories);
             }
-            User user = userRepository.findById(noteDTO.userId()).orElse(null);
+
             note.setUser(user);
             return noteRepository.save(note);
         } catch (DataAccessException e) {

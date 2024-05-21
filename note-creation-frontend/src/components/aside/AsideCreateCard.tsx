@@ -8,16 +8,16 @@ export default function AsideCreateCard() {
   const { isEditing } = useStore()
 
   return (
-    <div className='aside__create'>
-      <div className='aside__create-container'>
+    <aside>
+      <div className='aside__create'>
         <h2>{isEditing ? 'Edit Note' : 'Create Note'}</h2>
         <CreateNoteForm />
       </div>
 
-      <div className='aside__create-container'>
+      <div className='aside__create'>
         <h2>Create Category</h2>
         <CreateCategoryForm />
       </div>
-    </div>
+    </aside>
   )
 }

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import '../styles/account.css'
-import { login } from '../types/account-types'
+import { login, token } from '../types/account-types'
 import { useState } from 'react'
 import { error } from '../types/error-type'
 import fetchApi from '../utils/fetch-api'
@@ -33,16 +33,19 @@ export default function Login() {
     setError({ message: '', status: 0, fieldErrors: [] })
     setSuccess('')
     try {
-      await fetchApi({
+      const token: token = await fetchApi({
         path: '/auth/login',
         method: 'POST',
-        body: loginUser
+        body: loginUser,
+        authorization: false
       })
       setSuccess('Login exitoso')
       setLoginUser({
         username: '',
         password: ''
       })
+
+      localStorage.setItem('token', token.token)
       setIsAuth(true)
       navigate('/')
     } catch (error: any) {

@@ -1,27 +1,31 @@
+type FetchApiParams = {
+  path: string
+  method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
+  body?: any
+  authorization?: boolean
+  headers?: Record<string, string>
+}
+const BASE_URL = 'http://localhost:8080/api/v1'
+
 export default async function fetchApi({
   path,
   method = 'GET',
   body,
-  credentials = 'include'
-}: {
-  path: string
-  method?: 'GET' | 'POST' | 'PUT' | 'DELETE'
-  body?: any
-  credentials?: RequestCredentials
-}) {
-  const url = 'http://localhost:8080/api/v1' + path
+  authorization = true
+}: FetchApiParams) {
+  const url = `${BASE_URL}${path}`
+  const token = localStorage.getItem('token')
+  const authHeader =
+    authorization && token ? { Authorization: `Bearer ${token}` } : ''
 
   const options = {
     method,
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      ...authHeader
     },
-    credentials,
-    body: JSON.stringify(body)
-  }
-
-  if (method === 'GET' || method === 'DELETE') {
-    delete (options as { body?: any }).body
+    body:
+      method === 'GET' || method === 'DELETE' ? undefined : JSON.stringify(body)
   }
 
   try {

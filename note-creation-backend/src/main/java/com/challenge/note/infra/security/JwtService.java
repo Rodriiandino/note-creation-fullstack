@@ -33,7 +33,6 @@ public class JwtService {
         return Jwts
                 .builder()
                 .claims(extraClaims)
-                .claim("userId", user.getId())
                 .claim(("username"), user.getUsername())
                 .claim("email", user.getEmail())
                 .subject(user.getUsername())

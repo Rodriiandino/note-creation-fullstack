@@ -8,3 +8,7 @@ export type login = {
   username: string
   password: string
 }
+
+export type token = {
+  token: string
+}

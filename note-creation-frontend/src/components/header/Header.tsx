@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import './header.css'
-import { IconUser, IconBook } from './icon.header'
+import { IconUser, IconBook } from './icon-header'
 import { useAuthStore } from '../../context/useContext'
 import { useNavigate } from 'react-router-dom'
 

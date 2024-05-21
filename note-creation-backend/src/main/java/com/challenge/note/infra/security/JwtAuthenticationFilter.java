@@ -70,20 +70,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return authHeader.substring(7);
         }
 
-        Cookie[] cookies = request.getCookies();
-
-        if(cookies!=null)
-        {
-            for(Cookie cookie: cookies)
-            {
-                if(cookie.getName().equals("token"))
-                {
-                    return cookie.getValue();
-                }
-            }
-        }
-
-
         return null;
     }
 

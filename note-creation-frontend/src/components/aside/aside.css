@@ -1,16 +1,4 @@
 .aside__create {
-  height: 100%;
-  display: flex;
-
-  align-items: center;
-  width: 265px;
-  flex-direction: column;
-  padding: 1rem;
-  gap: 1rem;
-  border-right: 1px solid hsl(var(--primary));
-}
-
-.aside__create-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -55,11 +43,4 @@
 .aside__checkbox-group div {
   display: flex;
   gap: 0.5rem;
-}
-
-@media screen and (max-width: 768px) {
-  .aside__create {
-    width: 100%;
-    border-right: none;
-  }
 }

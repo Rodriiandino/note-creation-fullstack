@@ -14,12 +14,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,26 +45,15 @@ public class AuthenticationController {
     @PostMapping("/login")
     @Operation(summary = "Authenticate user", description = "Authenticate user with email and password.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "User authenticated successfully."),
+            @ApiResponse(responseCode = "200", description = "User authenticated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = AuthenticationResponse.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Void> login(@RequestBody @Valid UserAuthDTO userAuthDTO, HttpServletResponse response) {
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody @Valid UserAuthDTO userAuthDTO) {
         AuthenticationResponse authenticationResponse = authenticationService.authenticate(userAuthDTO);
 
-        ResponseCookie cookie = ResponseCookie.from("token", authenticationResponse.token())
-                .httpOnly(true)
-                .secure(true)
-                .sameSite("strict")
-                .maxAge(86400000)
-                .path("/")
-                .build();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(HttpHeaders.SET_COOKIE, cookie.toString());
-
-        return ResponseEntity.noContent().headers(headers).build();
+        return ResponseEntity.ok(authenticationResponse);
     }
 
     @GetMapping("/activate-account")

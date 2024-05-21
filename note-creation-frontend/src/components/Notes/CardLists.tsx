@@ -1,24 +1,35 @@
 import Card from './Card'
 import fetchApi from '../../utils/fetch-api'
 import { useEffect, useState } from 'react'
-import { useStore } from '../../context/useContext'
+import { useStore, useAuthStore } from '../../context/useContext'
 import { CardType } from '../../types/card-types'
 import { Suspense } from 'react'
 
 export default function CardLists() {
   const { setNotes, notes, cardEditing, isEditing } = useStore()
   const [notesSorted, setNotesSorted] = useState<CardType[]>()
+  const { isAuth } = useAuthStore()
 
   useEffect(() => {
-    fetchApi({ path: '/notes/all' }).then(data => setNotes(data))
-  }, [])
+    if (!isAuth) return
+
+    let isMounted = true
+
+    fetchApi({ path: '/notes/all' }).then(data => isMounted && setNotes(data))
+
+    return () => {
+      isMounted = false
+    }
+  }, [isAuth])
 
   useEffect(() => {
-    setNotesSorted(
-      notes?.sort((a, b) => {
-        return a.id < b.id ? 1 : -1
-      })
-    )
+    if (!notes) return
+
+    const sorted = notes.sort((a, b) => {
+      return a.id < b.id ? 1 : -1
+    })
+
+    setNotesSorted(sorted)
   }, [notes])
 
   return (

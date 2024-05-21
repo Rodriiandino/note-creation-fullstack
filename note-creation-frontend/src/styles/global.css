@@ -100,6 +100,17 @@ main {
   );
 }
 
+aside {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  width: 265px;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  border-right: 1px solid hsl(var(--primary));
+}
+
 button {
   cursor: pointer;
   background: hsl(var(--background));
@@ -182,5 +193,10 @@ textarea {
   main {
     height: auto;
     grid-template-columns: 1fr;
+  }
+
+  aside {
+    width: 100%;
+    border-right: none;
   }
 }

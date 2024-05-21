@@ -32,7 +32,8 @@ export default function Register() {
       await fetchApi({
         path: '/auth/register',
         method: 'POST',
-        body: registerUser
+        body: registerUser,
+        authorization: false
       })
       setSuccess('Registro exitoso')
       setRegisterUser({

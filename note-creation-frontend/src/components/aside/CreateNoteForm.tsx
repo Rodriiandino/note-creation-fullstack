@@ -105,7 +105,10 @@ export default function CreateNoteForm() {
   }, [isEditing])
 
   return (
-    <form className='aside__form'>
+    <form
+      className='aside__form'
+      onSubmit={isEditing ? handleEdit : handleSubmit}
+    >
       <div className='aside__form-group'>
         <label htmlFor='title'>Title</label>
         <input
@@ -148,9 +151,7 @@ export default function CreateNoteForm() {
           ))}
         </div>
       </div>
-      <button type='submit' onClick={isEditing ? handleEdit : handleSubmit}>
-        {isEditing ? 'Edit' : 'Create'}
-      </button>
+      <button type='submit'>{isEditing ? 'Edit' : 'Create'}</button>
     </form>
   )
 }

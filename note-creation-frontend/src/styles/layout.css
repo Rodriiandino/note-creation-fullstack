@@ -1,15 +1,73 @@
-.account {
+.home {
+  height: 100%;
+  min-height: calc(100vh - 9rem);
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: calc(100vh - 2rem);
-  background: repeating-linear-gradient(
-    hsl(var(--background)),
-    hsl(var(--background)) 31px,
-    hsl(var(--muted)) 31px,
-    hsl(var(--muted)) 32px
-  );
+  align-items: center;
+  gap: 1rem;
+}
+
+.home h1 {
+  font-size: var(--step-3);
+  color: hsl(var(--primary));
+}
+
+.home p {
+  font-size: var(--step-0);
+  color: hsl(var(--text));
+  font-family: var(--font-segoe);
+}
+
+.home__cta {
+  display: flex;
+
+  gap: 1rem;
+}
+
+.footer {
+  height: 3rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.footer a {
+  padding: 0;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 0.2rem;
+  background-color: hsl(var(--foreground));
+}
+
+.footer p {
+  text-align: center;
+  font-size: var(--step-0);
+  color: hsl(var(--primary));
+}
+
+.github {
+  margin: 0 auto;
+  width: 2rem;
+  height: 2rem;
+}
+
+.github:hover {
+  animation: logo-spin 0.5s ease;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .account__form {
@@ -38,7 +96,7 @@
 
 .account__form-group label {
   font-size: var(--step--1);
-  font-family: 'roboto', sans-serif;
+  font-family: var(--font-roboto);
 }
 
 .account__link {
@@ -86,6 +144,9 @@
   top: 0.5rem;
   left: 0.5rem;
   border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .account__back svg {
@@ -107,7 +168,7 @@
 .account__activate-code span {
   text-align: center;
   padding: 0.5rem;
-  font-family: 'roboto', sans-serif;
+  font-family: var(--font-roboto);
 }
 
 .activate__input {
@@ -138,13 +199,13 @@
   font-size: var(--step--1);
   color: hsl(var(--danger));
   text-align: center;
-  font-family: 'roboto', sans-serif;
+  font-family: var(--font-roboto);
 }
 
 .account__success {
   font-size: var(--step--1);
   text-align: center;
-  font-family: 'roboto', sans-serif;
+  font-family: var(--font-roboto);
 }
 
 @media screen and (max-width: 768px) {

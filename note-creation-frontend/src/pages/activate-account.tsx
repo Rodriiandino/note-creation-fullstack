@@ -1,8 +1,9 @@
 import LinkBack from '../components/link-back'
-import '../styles/account.css'
 import { useEffect, useState } from 'react'
 import { error } from '../types/error-type'
 import fetchApi from '../utils/fetch-api'
+import SuccessError from '../components/success-error'
+import Layout from '../components/layout'
 
 export default function ActivateAccount() {
   const [code, setCode] = useState<string[]>(['', '', '', '', '', ''])
@@ -115,7 +116,7 @@ export default function ActivateAccount() {
   }
 
   return (
-    <section className='account'>
+    <Layout>
       <div className='account__activate'>
         <LinkBack path='/login' />
         <header>
@@ -191,17 +192,8 @@ export default function ActivateAccount() {
             Activate
           </button>
         </footer>
-        {error.status !== 0 && (
-          <div className='account__error'>
-            {error?.fieldErrors?.length > 0
-              ? error.fieldErrors.map((fieldError, index) => (
-                  <div key={index}>{fieldError.message}</div>
-                ))
-              : error.message}
-          </div>
-        )}
-        {success && <div className='account__success'>{success}</div>}
+        <SuccessError error={error} success={success} />
       </div>
-    </section>
+    </Layout>
   )
 }

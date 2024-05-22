@@ -18,6 +18,9 @@
   --danger: 0 100% 63.1%;
   --danger-foreground: 210 20% 98%;
 
+  --font-roboto: 'Roboto', sans-serif;
+  --font-segoe: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
   --max-width: 1400px;
 
   --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
@@ -118,6 +121,7 @@ button {
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
   transition: background-color 0.2s;
+  padding: 0.2rem 0.5rem;
 }
 
 button:hover {
@@ -140,6 +144,7 @@ a {
   color: hsl(var(--text));
   text-decoration: none;
   transition: background-color 0.2s;
+  background: hsl(var(--background));
 }
 
 a:hover {

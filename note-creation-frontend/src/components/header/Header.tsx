@@ -1,25 +1,19 @@
-import { Link } from 'react-router-dom'
 import './header.css'
+import { Link } from 'react-router-dom'
 import { IconUser, IconBook } from './icon-header'
 import { useAuthStore } from '../../context/useContext'
-import { useNavigate } from 'react-router-dom'
+import { useAuth } from '../hooks/useAuth'
 
 export default function Header() {
   const { isAuth } = useAuthStore()
-
-  const navigate = useNavigate()
-
-  const logout = () => {
-    document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-    navigate(0)
-  }
+  const { logout } = useAuth()
 
   return (
     <header className='header'>
-      <div className='header__logo'>
+      <Link to='/' className='header__logo'>
         <IconBook className='header__icon' />
         <h1>My Notes</h1>
-      </div>
+      </Link>
 
       {isAuth && (
         <div className='header__user'>
@@ -38,10 +32,10 @@ export default function Header() {
           <div className='header__user-info'>
             <small>Sign in to create and save your notes!</small>
             <div className='header__user-links'>
-              <Link className='header__link' to='login'>
+              <Link className='header__link' to='/login'>
                 Sign in
               </Link>
-              <Link className='header__link' to='register'>
+              <Link className='header__link' to='/register'>
                 Sing up
               </Link>
             </div>

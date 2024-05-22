@@ -1,4 +1,3 @@
-import '../styles/global.css'
 import { Link } from 'react-router-dom'
 
 export default function LinkBack({ path }: { path: string }) {

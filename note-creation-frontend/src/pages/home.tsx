@@ -1,31 +1,13 @@
-import Header from '../components/header/Header'
-import '../styles/home.css'
-import { useAuthStore } from '../context/useContext'
-import { isTokenExpired, getToken, removeToken } from '../utils/token-service'
+import { useAuth } from '../components/hooks/useAuth'
 import { useEffect } from 'react'
+import Layout from '../components/layout'
 
 export default function Home() {
-  const { setIsAuth } = useAuthStore()
+  const { checkAuthentication } = useAuth()
 
   useEffect(() => {
-    const token = getToken()
+    checkAuthentication()
+  }, [checkAuthentication])
 
-    if (token && isTokenExpired(token)) {
-      removeToken()
-      setIsAuth(false)
-    }
-
-    if (token && !isTokenExpired(token)) {
-      setIsAuth(true)
-    }
-  }, [])
-
-  return (
-    <>
-      <Header />
-      <main className='home'>
-        <h1>Welcome to the home page!</h1>
-      </main>
-    </>
-  )
+  return <Layout>sección de inicio</Layout>
 }

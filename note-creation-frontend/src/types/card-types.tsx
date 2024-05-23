@@ -22,6 +22,7 @@ export interface CreateCard {
 }
 
 export interface UpdateCard {
+  id: number
   title: string
   content: string
   categories: string[]

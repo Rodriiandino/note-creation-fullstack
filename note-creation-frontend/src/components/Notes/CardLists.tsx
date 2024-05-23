@@ -1,22 +1,22 @@
 import Card from './Card'
-import fetchApi from '../../utils/fetch-api'
 import { useEffect, useState } from 'react'
 import { useStore, useAuthStore } from '../../context/useContext'
 import { CardType } from '../../types/card-types'
 import { Suspense } from 'react'
+import { useNotes } from '../hooks/useNotes'
+import SuccessError from '../success-error'
 
 export default function CardLists() {
   const { setNotes, notes, cardEditing, isEditing } = useStore()
   const [notesSorted, setNotesSorted] = useState<CardType[]>()
+  const { getUserNotes, error, success } = useNotes()
   const { isAuth } = useAuthStore()
 
   useEffect(() => {
     if (!isAuth) return
 
     let isMounted = true
-
-    fetchApi({ path: '/notes/all' }).then(data => isMounted && setNotes(data))
-
+    getUserNotes().then(data => isMounted && setNotes(data))
     return () => {
       isMounted = false
     }
@@ -36,8 +36,8 @@ export default function CardLists() {
     <section className='card__lists'>
       {isEditing && cardEditing ? (
         <Card card={cardEditing} />
-      ) : notesSorted && notesSorted.length > 0 ? (
-        notesSorted.map(note => (
+      ) : notesSorted?.length ? (
+        notesSorted?.map(note => (
           <Suspense key={note.id} fallback={<p>Loading...</p>}>
             <Card key={note.id} card={note} />
           </Suspense>
@@ -45,6 +45,7 @@ export default function CardLists() {
       ) : (
         <article className='card card__no-notes'>
           <p>No notes found.</p>
+          <SuccessError success={success} error={error} />
         </article>
       )}
     </section>

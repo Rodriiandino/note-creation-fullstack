@@ -1,102 +1,31 @@
 import './aside.css'
-import { useState, useEffect } from 'react'
-import fetchApi from '../../utils/fetch-api'
-import { CreateCard, UpdateCard } from '../../types/card-types'
+import { useEffect } from 'react'
 import { useStore } from '../../context/useContext'
+import { useCategory } from '../hooks/useCategory'
+import SuccessError from '../success-error'
+import { useNotes } from '../hooks/useNotes'
 
 export default function CreateNoteForm() {
+  const { categories, isEditing, cardEditing } = useStore()
   const {
-    categories,
-    setCategories,
-    setNotes,
-    isEditing,
-    cardEditing,
-    setIsEditing
-  } = useStore()
-  const [card, setCard] = useState<CreateCard>({
-    title: '',
-    content: '',
-    categories: []
-  })
-  const [cardEdit, setCardEdit] = useState<UpdateCard>({
-    title: '',
-    content: '',
-    categories: []
-  })
+    card,
+    cardEdit,
+    setCardEdit,
+    handleCreateNote,
+    handleUpdateNote,
+    handleChanges
+  } = useNotes()
+
+  const { getAllCategories, error, success } = useCategory()
 
   useEffect(() => {
-    fetchApi({ path: '/categories/all' }).then(data => {
-      setCategories(data)
-    })
+    getAllCategories()
   }, [])
-
-  const handleChanges = (e: any) => {
-    const { id, value, checked } = e.target
-    if (id === 'title' || id === 'content') {
-      setCard({ ...card, [id]: value })
-    } else {
-      if (checked) {
-        setCard({ ...card, categories: [...card.categories, value] })
-      } else {
-        setCard({
-          ...card,
-          categories: card.categories.filter(category => category !== value)
-        })
-      }
-    }
-  }
-
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    await fetchApi({
-      path: '/notes/create',
-      method: 'POST',
-      body: card
-    })
-    setCard({
-      title: '',
-      content: '',
-      categories: []
-    })
-
-    const data = await fetchApi({ path: '/notes/all' })
-    setNotes(data)
-  }
-
-  const handleEdit = async (e: { preventDefault: () => void }) => {
-    e.preventDefault()
-    await fetchApi({
-      path: `/notes/${cardEditing?.id}`,
-      method: 'PUT',
-      body: cardEdit
-    })
-    const data = await fetchApi({ path: '/notes/all' })
-    setNotes(data)
-    setIsEditing(false)
-  }
-
-  const handleEditChanges = (e: any) => {
-    const { id, value, checked } = e.target
-    if (id === 'title' || id === 'content') {
-      setCardEdit({ ...cardEdit, [id]: value })
-    } else {
-      if (checked) {
-        setCardEdit({
-          ...cardEdit,
-          categories: [...cardEdit.categories, value]
-        })
-      } else {
-        setCardEdit({
-          ...cardEdit,
-          categories: cardEdit.categories.filter(category => category !== value)
-        })
-      }
-    }
-  }
 
   useEffect(() => {
     if (isEditing) {
       setCardEdit({
+        id: cardEditing?.id ?? 0,
         title: cardEditing?.title ?? '',
         content: cardEditing?.content ?? '',
         categories: cardEditing?.categories.map(cat => cat.name) ?? []
@@ -107,7 +36,7 @@ export default function CreateNoteForm() {
   return (
     <form
       className='aside__form'
-      onSubmit={isEditing ? handleEdit : handleSubmit}
+      onSubmit={isEditing ? handleUpdateNote : handleCreateNote}
     >
       <div className='aside__form-group'>
         <label htmlFor='title'>Title</label>
@@ -116,7 +45,7 @@ export default function CreateNoteForm() {
           id='title'
           placeholder={isEditing ? 'Edit your title' : 'Make a title'}
           value={isEditing ? cardEdit.title : card.title}
-          onChange={isEditing ? handleEditChanges : handleChanges}
+          onChange={e => handleChanges(e, isEditing ? 'edit' : 'create')}
           required
         />
       </div>
@@ -126,7 +55,7 @@ export default function CreateNoteForm() {
           id='content'
           placeholder={isEditing ? 'Edit your note' : 'Make a note'}
           value={isEditing ? cardEdit.content : card.content}
-          onChange={isEditing ? handleEditChanges : handleChanges}
+          onChange={e => handleChanges(e, isEditing ? 'edit' : 'create')}
           required
         ></textarea>
       </div>
@@ -139,7 +68,7 @@ export default function CreateNoteForm() {
                 type='checkbox'
                 id={category.name}
                 value={category.name}
-                onChange={isEditing ? handleEditChanges : handleChanges}
+                onChange={e => handleChanges(e, isEditing ? 'edit' : 'create')}
                 defaultChecked={
                   isEditing
                     ? cardEdit.categories.includes(category.name)
@@ -149,6 +78,8 @@ export default function CreateNoteForm() {
               <label htmlFor={category.name}>{category.name}</label>
             </div>
           ))}
+
+          <SuccessError success={success} error={error} />
         </div>
       </div>
       <button type='submit'>{isEditing ? 'Edit' : 'Create'}</button>

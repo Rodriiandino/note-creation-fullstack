@@ -1,8 +1,7 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { login, register, token } from '../../types/account-types'
 import { error } from '../../types/error-type'
-import fetchApi from '../../utils/fetch-api'
 import {
   getToken,
   isTokenExpired,
@@ -10,6 +9,7 @@ import {
   setToken
 } from '../../utils/token-service'
 import { useAuthStore } from '../../context/useContext'
+import { registerUserApi, loginUserApi } from '../../utils/api-service'
 
 export function useAuth() {
   const navigate = useNavigate()
@@ -47,12 +47,7 @@ export function useAuth() {
     setError({ message: '', status: 0, fieldErrors: [] })
     setSuccess('')
     try {
-      const token: token = await fetchApi({
-        path: '/auth/login',
-        method: 'POST',
-        body: loginUser,
-        authorization: false
-      })
+      const token: token = await loginUserApi(loginUser)
       setSuccess('Login exitoso')
       setLoginUser({
         username: '',
@@ -72,12 +67,7 @@ export function useAuth() {
     setError({ message: '', status: 0, fieldErrors: [] })
     setSuccess('')
     try {
-      await fetchApi({
-        path: '/auth/register',
-        method: 'POST',
-        body: registerUser,
-        authorization: false
-      })
+      await registerUserApi(registerUser)
       setSuccess('Registro exitoso')
       setRegisterUser({
         username: '',

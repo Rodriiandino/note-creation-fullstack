@@ -9,4 +9,10 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     List<Note> findByArchivedTrue();
 
     List<Note> findByArchivedFalse();
+
+    List<Note> findByUserUsername(String username);
+
+    List<Note> findByUserUsernameAndArchivedTrue(String username);
+
+    List<Note> findByUserUsernameAndArchivedFalse(String username);
 }

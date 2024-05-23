@@ -74,6 +74,25 @@ public class NoteService {
         }
     }
 
+    public List<Note> getNotesByUser() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null) {
+                throw new CustomExceptionResponse("User not authenticated", 401);
+            }
+
+            String username = authentication.getName();
+            List<Note> notes = noteRepository.findByUserUsername(username);
+
+            if (notes.isEmpty()) {
+                throw new EntityNotFoundException("Note not found");
+            }
+            return notes;
+        } catch (DataAccessException e) {
+            throw new CustomExceptionResponse("Error to get notes by user", 500);
+        }
+    }
+
     public Note getNoteById(Long noteId) {
         try {
             if (!noteRepository.existsById(noteId)) {
@@ -177,6 +196,44 @@ public class NoteService {
             return notes;
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get unarchived notes", 500);
+        }
+    }
+
+    public List<Note> getArchivedNotesByUser() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null) {
+                throw new CustomExceptionResponse("User not authenticated", 401);
+            }
+
+            String username = authentication.getName();
+            List<Note> notes = noteRepository.findByUserUsernameAndArchivedTrue(username);
+
+            if (notes.isEmpty()) {
+                throw new EntityNotFoundException("Archived notes not found");
+            }
+            return notes;
+        } catch (DataAccessException e) {
+            throw new CustomExceptionResponse("Error to get archived notes by user", 500);
+        }
+    }
+
+    public List<Note> getUnarchivedNotesByUser() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null) {
+                throw new CustomExceptionResponse("User not authenticated", 401);
+            }
+
+            String username = authentication.getName();
+            List<Note> notes = noteRepository.findByUserUsernameAndArchivedFalse(username);
+
+            if (notes.isEmpty()) {
+                throw new EntityNotFoundException("Unarchived notes not found");
+            }
+            return notes;
+        } catch (DataAccessException e) {
+            throw new CustomExceptionResponse("Error to get unarchived notes by user", 500);
         }
     }
 

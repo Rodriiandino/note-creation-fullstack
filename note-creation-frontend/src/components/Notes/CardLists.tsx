@@ -23,13 +23,15 @@ export default function CardLists() {
   }, [isAuth])
 
   useEffect(() => {
-    if (!notes) return
-
-    const sorted = notes.sort((a, b) => {
+    const sorted = notes?.sort((a, b) => {
       return a.id < b.id ? 1 : -1
     })
 
     setNotesSorted(sorted)
+
+    return () => {
+      setNotesSorted([])
+    }
   }, [notes])
 
   return (

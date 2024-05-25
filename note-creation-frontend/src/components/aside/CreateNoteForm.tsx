@@ -4,6 +4,7 @@ import { useStore } from '../../context/useContext'
 import { useCategory } from '../hooks/useCategory'
 import SuccessError from '../success-error'
 import { useNotes } from '../hooks/useNotes'
+import { IconTrash, IconPen } from '../icons'
 
 export default function CreateNoteForm() {
   const { categories, isEditing, cardEditing } = useStore()
@@ -13,10 +14,13 @@ export default function CreateNoteForm() {
     setCardEdit,
     handleCreateNote,
     handleUpdateNote,
-    handleChanges
+    handleChanges,
+    success: noteSuccess,
+    error: noteError
   } = useNotes()
 
-  const { getAllCategories, error, success } = useCategory()
+  const { getAllCategories, error, success, handleDeleteCategory } =
+    useCategory()
 
   useEffect(() => {
     getAllCategories()
@@ -62,6 +66,9 @@ export default function CreateNoteForm() {
       <div className='aside__form-group'>
         <label htmlFor='category'>Category</label>
         <div className='aside__checkbox-group'>
+          {categories == null && (
+            <p>No categories available. Create one first</p>
+          )}
           {categories?.map(category => (
             <div key={category.id}>
               <input
@@ -76,13 +83,23 @@ export default function CreateNoteForm() {
                 }
               />
               <label htmlFor={category.name}>{category.name}</label>
+              <div className='checkbox__actions'>
+                <button>
+                  <IconPen />
+                </button>
+                <button>
+                  <IconTrash
+                    onClick={e => handleDeleteCategory(e, category.id)}
+                  />
+                </button>
+              </div>
             </div>
           ))}
-
           <SuccessError success={success} error={error} />
         </div>
       </div>
       <button type='submit'>{isEditing ? 'Edit' : 'Create'}</button>
+      <SuccessError success={noteSuccess} error={noteError} />
     </form>
   )
 }

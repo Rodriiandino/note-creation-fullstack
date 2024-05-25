@@ -1,48 +1,36 @@
 import './section.css'
-import { IconArchive, IconFilter, IconUnarchive } from './icons-section'
+import { IconArchive, IconFilter, IconUnarchive } from '../icons'
 import { useStore } from '../../context/useContext'
-import fetchApi from '../../utils/fetch-api'
 import { useState } from 'react'
 import { CardType } from '../../types/card-types'
+import { useNotes } from '../hooks/useNotes'
 
 export default function HeaderSection() {
   const { showArchive, setShowArchive, setNotes, categories } = useStore()
   const [filter, setFilter] = useState('')
   const [showFilter, setShowFilter] = useState(false)
+  const { getUserNotes, getUserArchivedNotes, getUserUnarchivedNotes } =
+    useNotes()
+
   const handleShowFilter = () => {
     setShowFilter(!showFilter)
-  }
-
-  const fetchApiAndSetNotes = async () => {
-    const data: CardType[] = await fetchApi({ path: '/notes/all' })
-    setNotes(data)
-  }
-
-  const fetchApiAndSetNotesArchived = async () => {
-    const data: CardType[] = await fetchApi({ path: '/notes/archived' })
-    setNotes(data)
-  }
-
-  const fetchApiAndSetNotesUnarchived = async () => {
-    const data: CardType[] = await fetchApi({ path: '/notes/unarchived' })
-    setNotes(data)
   }
 
   const handleArchive = () => {
     if (showArchive === 'all') {
       setShowArchive('archived')
-      fetchApiAndSetNotesArchived()
+      getUserArchivedNotes()
     } else if (showArchive === 'archived') {
       setShowArchive('unarchive')
-      fetchApiAndSetNotesUnarchived()
+      getUserUnarchivedNotes()
     } else {
       setShowArchive('all')
-      fetchApiAndSetNotes()
+      getUserNotes()
     }
   }
 
   const handleFilter = async (category: string) => {
-    const data: CardType[] = await fetchApi({ path: '/notes/all' })
+    const data: CardType[] = await getUserNotes()
     setShowArchive('all')
     setFilter(category)
 
@@ -66,7 +54,7 @@ export default function HeaderSection() {
 
   const handleSearch = async (e: any) => {
     const search = e.target.previousElementSibling.value
-    const data: CardType[] = await fetchApi({ path: '/notes/all' })
+    const data: CardType[] = await getUserNotes()
 
     if (search === '') {
       setNotes(data)

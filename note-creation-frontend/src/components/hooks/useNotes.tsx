@@ -3,8 +3,13 @@ import { useStore } from '../../context/useContext'
 import { error } from '../../types/error-type'
 import { CreateCard, UpdateCard } from '../../types/card-types'
 import {
+  archiveCardApi,
   createCardApi,
+  deleteCardApi,
+  getArchivedUserCardsApi,
   getCardUserApi,
+  getUnarchivedUserCardsApi,
+  unarchiveCardApi,
   updateCardApi
 } from '../../utils/api-service'
 
@@ -85,6 +90,7 @@ export function useNotes() {
       setSuccess('Note created')
       const data = await getCardUserApi()
       setNotes(data)
+      setCard({ title: '', content: '', categories: [] })
     } catch (error: any) {
       setError(error)
     }
@@ -101,6 +107,69 @@ export function useNotes() {
       const data = await getCardUserApi()
       setNotes(data)
       setIsEditing(false)
+      setCardEdit({ id: 0, title: '', content: '', categories: [] })
+    } catch (error: any) {
+      setError(error)
+    }
+  }
+
+  const handleDeleteNote = async (cardId: number) => {
+    setError({ message: '', status: 0, fieldErrors: [] })
+    setSuccess('')
+
+    try {
+      await deleteCardApi(cardId)
+      setSuccess('Note deleted')
+      const data = await getCardUserApi()
+      setNotes(data)
+    } catch (error: any) {
+      setError(error)
+    }
+  }
+
+  const handleArchiveNote = async (cardId: number) => {
+    setError({ message: '', status: 0, fieldErrors: [] })
+    setSuccess('')
+
+    try {
+      await archiveCardApi(cardId)
+      setSuccess('Note archived')
+      const data = await getCardUserApi()
+      setNotes(data)
+    } catch (error: any) {
+      setError(error)
+    }
+  }
+
+  const handleUnarchiveNote = async (cardId: number) => {
+    setError({ message: '', status: 0, fieldErrors: [] })
+    setSuccess('')
+
+    try {
+      await unarchiveCardApi(cardId)
+      setSuccess('Note unarchived')
+      const data = await getCardUserApi()
+      setNotes(data)
+    } catch (error: any) {
+      setError(error)
+    }
+  }
+
+  const getUserArchivedNotes = async () => {
+    try {
+      const data = await getArchivedUserCardsApi()
+      setNotes(data)
+      return data
+    } catch (error: any) {
+      setError(error)
+    }
+  }
+
+  const getUserUnarchivedNotes = async () => {
+    try {
+      const data = await getUnarchivedUserCardsApi()
+      setNotes(data)
+      return data
     } catch (error: any) {
       setError(error)
     }
@@ -116,6 +185,11 @@ export function useNotes() {
     handleCreateNote,
     handleUpdateNote,
     handleChanges,
-    getUserNotes
+    getUserNotes,
+    handleDeleteNote,
+    handleArchiveNote,
+    handleUnarchiveNote,
+    getUserArchivedNotes,
+    getUserUnarchivedNotes
   }
 }

@@ -1,6 +1,6 @@
 import { register, login } from '../types/account-types'
 import { CategoryType, CreateCategory } from '../types/categories-type'
-import { CardType, CreateCard, UpdateCard } from '../types/card-types'
+import { CreateCard, UpdateCard } from '../types/card-types'
 import fetchApi from './fetch-api'
 
 export const registerUserApi = async (user: register) => {
@@ -41,7 +41,7 @@ export const getAllCategoriesApi = async () => {
   return response
 }
 
-export const deleteCategoryApi = async (categoryId: string) => {
+export const deleteCategoryApi = async (categoryId: number) => {
   const response = await fetchApi({
     path: `/categories/${categoryId}`,
     method: 'DELETE'
@@ -56,12 +56,6 @@ export const updateCategoryApi = async (category: CategoryType) => {
     method: 'PUT',
     body: category.name
   })
-
-  return response
-}
-
-export const getAllCardsApi = async () => {
-  const response = await fetchApi({ path: '/notes/all' })
 
   return response
 }
@@ -96,11 +90,41 @@ export const updateCardApi = async (card: UpdateCard) => {
   return response
 }
 
-export const deleteCardApi = async (cardId: string) => {
+export const deleteCardApi = async (cardId: number) => {
   const response = await fetchApi({
     path: `/notes/${cardId}`,
     method: 'DELETE'
   })
+
+  return response
+}
+
+export const archiveCardApi = async (cardId: number) => {
+  const response = await fetchApi({
+    path: `/notes/archive/${cardId}`,
+    method: 'POST'
+  })
+
+  return response
+}
+
+export const unarchiveCardApi = async (cardId: number) => {
+  const response = await fetchApi({
+    path: `/notes/unarchive/${cardId}`,
+    method: 'POST'
+  })
+
+  return response
+}
+
+export const getArchivedUserCardsApi = async () => {
+  const response = await fetchApi({ path: '/notes/user/archived' })
+
+  return response
+}
+
+export const getUnarchivedUserCardsApi = async () => {
+  const response = await fetchApi({ path: '/notes/user/unarchived' })
 
   return response
 }

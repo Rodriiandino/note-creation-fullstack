@@ -41,6 +41,7 @@ export function useCategory() {
       setSuccess(`Category '${categoryName}' created`)
       const data = await getAllCategoriesApi()
       setCategories(data)
+      setCategoryName('')
     } catch (error: any) {
       setError(error)
     }
@@ -60,7 +61,11 @@ export function useCategory() {
     }
   }
 
-  const handleDeleteCategory = async (categoryId: string) => {
+  const handleDeleteCategory = async (
+    e: { preventDefault: () => void },
+    categoryId: number
+  ) => {
+    e.preventDefault()
     setError({ message: '', status: 0, fieldErrors: [] })
     setSuccess('')
 

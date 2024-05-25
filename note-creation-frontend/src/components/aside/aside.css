@@ -38,9 +38,22 @@
   gap: 0.5rem;
   border-top: 1px solid hsl(var(--accent));
   overflow-y: auto;
+  padding: 0.5rem;
 }
 
 .aside__checkbox-group div {
   display: flex;
+  justify-content: space-between;
   gap: 0.5rem;
+}
+
+.checkbox__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.checkbox__actions button {
+  font-size: var(--step--1);
+  padding: 0;
 }

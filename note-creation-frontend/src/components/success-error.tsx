@@ -1,4 +1,5 @@
 import { error } from '../types/error-type'
+import { useState, useEffect } from 'react'
 
 export default function SuccessError({
   error,
@@ -7,18 +8,30 @@ export default function SuccessError({
   error: error
   success: string
 }) {
+  const [showMessage, setShowMessage] = useState(false)
+
+  useEffect(() => {
+    if (error.status !== 0 || success) {
+      setShowMessage(true)
+      setTimeout(() => {
+        setShowMessage(false)
+      }, 5000)
+    }
+
+    return () => {
+      setShowMessage(false)
+    }
+  }, [error, success])
+
   return (
     <>
-      {error.status !== 0 && (
-        <div className='account__error'>
-          {error?.fieldErrors?.length > 0
-            ? error.fieldErrors.map((fieldError, index) => (
-                <div key={index}>{fieldError.message}</div>
-              ))
-            : error.message}
+      {showMessage && (
+        <div className={`account__${error.status !== 0 ? 'error' : 'success'}`}>
+          {error.status !== 0
+            ? error.fieldErrors.map((err, i) => <p key={i}>{err.message}</p>)
+            : success}
         </div>
       )}
-      {success && <div className='account__success'>{success}</div>}
     </>
   )
 }

@@ -37,11 +37,7 @@ public class CategoryService {
 
     public List<Category> getAllCategories() {
         try {
-            List<Category> categories = categoryRepository.findAll();
-            if (categories.isEmpty()) {
-                throw new EntityNotFoundException("Categories not found");
-            }
-            return categories;
+            return categoryRepository.findAll();
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get all categories", 500);
         }

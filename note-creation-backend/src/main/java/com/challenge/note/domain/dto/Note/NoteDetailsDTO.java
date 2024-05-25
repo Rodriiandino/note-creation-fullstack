@@ -4,8 +4,9 @@ import com.challenge.note.domain.dto.User.UserDetailsDTO;
 import com.challenge.note.domain.dto.category.CategoryDetailsDTO;
 import com.challenge.note.domain.model.Note;
 
+import java.util.List;
 import java.util.Set;
-import java.util.stream.StreamSupport;
+import java.util.stream.Collectors;
 
 public record NoteDetailsDTO(
         Long id,
@@ -30,9 +31,9 @@ public record NoteDetailsDTO(
         );
     }
 
-    public static Iterable<NoteDetailsDTO> fromNotes(Iterable<Note> notes) {
-        return StreamSupport.stream(notes.spliterator(), false)
+    public static List<NoteDetailsDTO> fromNotes(List<Note> notes) {
+        return notes.stream()
                 .map(NoteDetailsDTO::new)
-                .collect(java.util.stream.Collectors.toList());
+                .collect(Collectors.toList());
     }
 }

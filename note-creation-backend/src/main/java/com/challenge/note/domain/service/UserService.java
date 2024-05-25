@@ -23,11 +23,7 @@ public class UserService {
 
     public List<User> getAllUsers() {
         try {
-            List<User> users = userRepository.findAll();
-            if (users.isEmpty()) {
-                throw new EntityNotFoundException("Users not found");
-            }
-            return users;
+            return userRepository.findAll();
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get all users", 500);
         }

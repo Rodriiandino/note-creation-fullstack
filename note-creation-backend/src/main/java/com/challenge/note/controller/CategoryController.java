@@ -22,6 +22,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("categories")
 @SecurityRequirement(name = "bearer-key")
@@ -51,12 +53,15 @@ public class CategoryController {
     @Operation(summary = "Get All Categories", description = "Retrieve a list of all categories.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Categories found.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CategoryDetailsDTO.class)))),
-            @ApiResponse(responseCode = "404", description = "Categories not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<CategoryDetailsDTO>> getAllCategories() {
-        Iterable<Category> categories = categoryService.getAllCategories();
-        Iterable<CategoryDetailsDTO> categoriesDetailsDTO = CategoryDetailsDTO.fromCategoriesToDTO(categories);
+    public ResponseEntity<List<CategoryDetailsDTO>> getAllCategories() {
+        List<Category> categories = categoryService.getAllCategories();
+        if (categories.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<CategoryDetailsDTO> categoriesDetailsDTO = CategoryDetailsDTO.fromCategoriesToDTO(categories);
         return ResponseEntity.status(HttpStatus.OK).body(categoriesDetailsDTO);
     }
 

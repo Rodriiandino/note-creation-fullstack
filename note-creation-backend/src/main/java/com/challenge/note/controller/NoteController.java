@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("notes")
 @SecurityRequirement(name = "bearer-key")
@@ -51,12 +53,15 @@ public class NoteController {
     @Operation(summary = "Get All Notes", description = "Retrieve a list of all notes.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Notes not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<NoteDetailsDTO>> getAllNotes() {
-        Iterable<Note> notes = noteService.getAllNote();
-        Iterable<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
+    public ResponseEntity<List<NoteDetailsDTO>> getAllNotes() {
+        List<Note> notes = noteService.getAllNote();
+        if (notes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
         return ResponseEntity.status(HttpStatus.OK).body(noteDetailsDTO);
     }
 
@@ -64,13 +69,16 @@ public class NoteController {
     @Operation(summary = "Get All Notes by User", description = "Retrieve a list of all notes by user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "User not authenticated.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
-            @ApiResponse(responseCode = "404", description = "Notes not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<NoteDetailsDTO>> getAllNotesByUser() {
-        Iterable<Note> notes = noteService.getNotesByUser();
-        Iterable<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
+    public ResponseEntity<List<NoteDetailsDTO>> getAllNotesByUser() {
+        List<Note> notes = noteService.getNotesByUser();
+        if (notes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
         return ResponseEntity.status(HttpStatus.OK).body(noteDetailsDTO);
     }
 
@@ -146,12 +154,15 @@ public class NoteController {
     @Operation(summary = "Get All Archived Notes", description = "Retrieve a list of all archived notes.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Archived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Archived notes not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<NoteDetailsDTO>> getAllArchivedNotes() {
-        Iterable<Note> notes = noteService.getArchivedNotes();
-        Iterable<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
+    public ResponseEntity<List<NoteDetailsDTO>> getAllArchivedNotes() {
+        List<Note> notes = noteService.getArchivedNotes();
+        if (notes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
         return ResponseEntity.status(HttpStatus.OK).body(noteDetailsDTO);
     }
 
@@ -159,12 +170,15 @@ public class NoteController {
     @Operation(summary = "Get All Unarchived Notes", description = "Retrieve a list of all unarchived notes.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Unarchived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
-            @ApiResponse(responseCode = "404", description = "Unarchived notes not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<NoteDetailsDTO>> getAllUnarchivedNotes() {
-        Iterable<Note> notes = noteService.getUnarchivedNotes();
-        Iterable<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
+    public ResponseEntity<List<NoteDetailsDTO>> getAllUnarchivedNotes() {
+        List<Note> notes = noteService.getUnarchivedNotes();
+        if (notes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
         return ResponseEntity.status(HttpStatus.OK).body(noteDetailsDTO);
     }
 
@@ -172,27 +186,33 @@ public class NoteController {
     @Operation(summary = "Get All Archived Notes by User", description = "Retrieve a list of all archived notes by user.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Archived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "User not authenticated.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
-            @ApiResponse(responseCode = "404", description = "Archived notes not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<NoteDetailsDTO>> getArchivedNotesByUser() {
-        Iterable<Note> notes = noteService.getArchivedNotesByUser();
-        Iterable<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
+    public ResponseEntity<List<NoteDetailsDTO>> getArchivedNotesByUser() {
+        List<Note> notes = noteService.getArchivedNotesByUser();
+        if (notes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
         return ResponseEntity.status(HttpStatus.OK).body(noteDetailsDTO);
     }
 
     @GetMapping("/user/unarchived")
     @Operation(summary = "Get All Unarchived Notes by User", description = "Retrieve a list of all unarchived notes by user.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Unarchived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
+            @ApiResponse(responseCode = "200", description = "Archived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "User not authenticated.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
-            @ApiResponse(responseCode = "404", description = "Unarchived notes not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<NoteDetailsDTO>> getUnarchivedNotesByUser() {
-        Iterable<Note> notes = noteService.getUnarchivedNotesByUser();
-        Iterable<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
+    public ResponseEntity<List<NoteDetailsDTO>> getUnarchivedNotesByUser() {
+        List<Note> notes = noteService.getUnarchivedNotesByUser();
+        if (notes.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<NoteDetailsDTO> noteDetailsDTO = NoteDetailsDTO.fromNotes(notes);
         return ResponseEntity.status(HttpStatus.OK).body(noteDetailsDTO);
     }
 }

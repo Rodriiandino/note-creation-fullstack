@@ -20,6 +20,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("users")
 @SecurityRequirement(name = "bearer-key")
@@ -36,13 +38,15 @@ public class UserController {
     @Operation(summary = "Get All Users", description = "Retrieve a list of all users.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Users found.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDetailsDTO.class)))),
-            @ApiResponse(responseCode = "404", description = "Users not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
-    public ResponseEntity<Iterable<UserDetailsDTO>> getAllUsers() {
-        Iterable<User> users = userService.getAllUsers();
-        Iterable<UserDetailsDTO> userDetailsDTO = UserDetailsDTO.fromUsers(users);
-
+    public ResponseEntity<List<UserDetailsDTO>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        if (users.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<UserDetailsDTO> userDetailsDTO = UserDetailsDTO.fromUsers(users);
         return ResponseEntity.status(HttpStatus.OK).body(userDetailsDTO);
     }
 

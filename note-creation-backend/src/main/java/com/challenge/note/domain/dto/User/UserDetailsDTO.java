@@ -2,6 +2,7 @@ package com.challenge.note.domain.dto.User;
 
 import com.challenge.note.domain.model.User;
 
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -13,9 +14,7 @@ public record UserDetailsDTO(
         this(user.getId(), user.getUsername());
     }
 
-    public static Iterable<UserDetailsDTO> fromUsers(Iterable<User> users) {
-        return StreamSupport.stream(users.spliterator(), false)
-                .map(UserDetailsDTO::new)
-                .collect(Collectors.toList());
+    public static List<UserDetailsDTO> fromUsers(List<User> users) {
+        return users.stream().map(UserDetailsDTO::new).collect(Collectors.toList());
     }
 }

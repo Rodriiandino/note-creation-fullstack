@@ -64,11 +64,7 @@ public class NoteService {
 
     public List<Note> getAllNote() {
         try {
-            List<Note> notes = noteRepository.findAll();
-            if (notes.isEmpty()) {
-                throw new EntityNotFoundException("Note not found");
-            }
-            return notes;
+            return noteRepository.findAll();
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get all note", 500);
         }
@@ -80,14 +76,8 @@ public class NoteService {
             if (authentication == null) {
                 throw new CustomExceptionResponse("User not authenticated", 401);
             }
-
             String username = authentication.getName();
-            List<Note> notes = noteRepository.findByUserUsername(username);
-
-            if (notes.isEmpty()) {
-                throw new EntityNotFoundException("Note not found");
-            }
-            return notes;
+            return noteRepository.findByUserUsername(username);
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get notes by user", 500);
         }
@@ -177,11 +167,7 @@ public class NoteService {
 
     public List<Note> getArchivedNotes() {
         try {
-            List<Note> notes = noteRepository.findByArchivedTrue();
-            if (notes.isEmpty()) {
-                throw new EntityNotFoundException("Archived notes not found");
-            }
-            return notes;
+            return noteRepository.findByArchivedTrue();
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get archived notes", 500);
         }
@@ -189,11 +175,7 @@ public class NoteService {
 
     public List<Note> getUnarchivedNotes() {
         try {
-            List<Note> notes = noteRepository.findByArchivedFalse();
-            if (notes.isEmpty()) {
-                throw new EntityNotFoundException("Unarchived notes not found");
-            }
-            return notes;
+            return noteRepository.findByArchivedFalse();
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get unarchived notes", 500);
         }
@@ -205,14 +187,8 @@ public class NoteService {
             if (authentication == null) {
                 throw new CustomExceptionResponse("User not authenticated", 401);
             }
-
             String username = authentication.getName();
-            List<Note> notes = noteRepository.findByUserUsernameAndArchivedTrue(username);
-
-            if (notes.isEmpty()) {
-                throw new EntityNotFoundException("Archived notes not found");
-            }
-            return notes;
+            return noteRepository.findByUserUsernameAndArchivedTrue(username);
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get archived notes by user", 500);
         }
@@ -224,14 +200,8 @@ public class NoteService {
             if (authentication == null) {
                 throw new CustomExceptionResponse("User not authenticated", 401);
             }
-
             String username = authentication.getName();
-            List<Note> notes = noteRepository.findByUserUsernameAndArchivedFalse(username);
-
-            if (notes.isEmpty()) {
-                throw new EntityNotFoundException("Unarchived notes not found");
-            }
-            return notes;
+            return noteRepository.findByUserUsernameAndArchivedFalse(username);
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to get unarchived notes by user", 500);
         }

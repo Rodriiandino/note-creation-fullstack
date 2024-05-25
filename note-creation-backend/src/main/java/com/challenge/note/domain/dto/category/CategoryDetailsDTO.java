@@ -2,6 +2,7 @@ package com.challenge.note.domain.dto.category;
 
 import com.challenge.note.domain.model.Category;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
@@ -20,9 +21,7 @@ public record CategoryDetailsDTO(
                 .collect(java.util.stream.Collectors.toSet());
     }
 
-    public static Iterable<CategoryDetailsDTO> fromCategoriesToDTO(Iterable<Category> categories) {
-        return StreamSupport.stream(categories.spliterator(), false)
-                .map(category -> new CategoryDetailsDTO(category.getId(), category.getName()))
-                .collect(java.util.stream.Collectors.toList());
+    public static List<CategoryDetailsDTO> fromCategoriesToDTO(List<Category> categories) {
+        return categories.stream().map(category -> new CategoryDetailsDTO(category.getId(), category.getName())).collect(java.util.stream.Collectors.toList());
     }
 }

@@ -1,12 +1,11 @@
-import Card from './Card'
-import { useEffect, useState } from 'react'
-import { useStore, useAuthStore } from '../../context/useContext'
+import { Suspense, useEffect, useState } from 'react'
+import { useAuthStore, useStore } from '../../context/useContext'
 import { CardType } from '../../types/card-types'
-import { Suspense } from 'react'
 import { useNotes } from '../hooks/useNotes'
-import SuccessError from '../success-error'
+import Note from '../notes/note'
+import NoteNotFound from '../notes/note-not-found'
 
-export default function CardLists() {
+export default function NotesContentList() {
   const { setNotes, notes, cardEditing, isEditing } = useStore()
   const [notesSorted, setNotesSorted] = useState<CardType[]>()
   const { getUserNotes, error, success } = useNotes()
@@ -37,18 +36,15 @@ export default function CardLists() {
   return (
     <section className='card__lists'>
       {isEditing && cardEditing ? (
-        <Card card={cardEditing} />
+        <Note note={cardEditing} />
       ) : notesSorted?.length ? (
         notesSorted?.map(note => (
           <Suspense key={note.id} fallback={<p>Loading...</p>}>
-            <Card key={note.id} card={note} />
+            <Note key={note.id} note={note} />
           </Suspense>
         ))
       ) : (
-        <article className='card card__no-notes'>
-          <p>No notes found.</p>
-          <SuccessError success={success} error={error} />
-        </article>
+        <NoteNotFound success={success} error={error} />
       )}
     </section>
   )

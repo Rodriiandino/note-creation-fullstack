@@ -58,8 +58,14 @@
   gap: 0.5rem;
   justify-content: center;
 }
-.header__link {
-  transition: background-color 0.2s;
+
+.header__user-links button {
+  background-color: hsl(var(--background));
+  color: hsl(var(--primary));
+}
+
+.header__user-links button:hover {
+  background-color: hsl(var(--accent));
 }
 
 .user__icon {

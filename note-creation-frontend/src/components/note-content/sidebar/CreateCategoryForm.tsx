@@ -1,6 +1,5 @@
-import './aside.css'
-import { useCategory } from '../hooks/useCategory'
-import SuccessError from '../success-error'
+import SuccessError from '../../success-error'
+import { useCategory } from '../../hooks/useCategory'
 
 export default function CreateCategoryForm() {
   const {

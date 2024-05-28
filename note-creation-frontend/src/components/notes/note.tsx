@@ -1,16 +1,17 @@
+import './note.css'
 import { IconArchive, IconUnarchive, IconTrash, IconPen } from '../icons'
 import { CardType } from '../../types/card-types'
 import { useStore } from '../../context/useContext'
 import { useNotes } from '../hooks/useNotes'
 
-export default function Card({ card }: { card: CardType }) {
+export default function Note({ note }: { note: CardType }) {
   const { setIsEditing, setCardEditing, isEditing } = useStore()
   const { handleDeleteNote, handleArchiveNote, handleUnarchiveNote } =
     useNotes()
 
   const handleEdit = () => {
     setIsEditing(true)
-    setCardEditing(card)
+    setCardEditing(note)
   }
 
   const handleCancel = () => {
@@ -19,48 +20,48 @@ export default function Card({ card }: { card: CardType }) {
   }
 
   return (
-    <article className='card'>
-      <header className='card__header'>
-        <h3>{card.title}</h3>
+    <article className='note'>
+      <header className='note__header'>
+        <h3>{note.title}</h3>
         {!isEditing && (
           <button
-            onClick={() => handleDeleteNote(card.id)}
-            className='button__card'
+            onClick={() => handleDeleteNote(note.id)}
+            className='note__button'
           >
             <IconTrash />
           </button>
         )}
       </header>
-      <section className='card__section'>
-        <p>{card.content}</p>
+      <section className='note__section'>
+        <p>{note.content}</p>
       </section>
-      <footer className='card__footer'>
+      <footer className='note__footer'>
         <div>
-          <button onClick={handleEdit} className='button__card'>
+          <button onClick={handleEdit} className='note__button'>
             <IconPen />
           </button>
           {!isEditing && (
             <button
               onClick={() =>
-                card.archived
-                  ? handleUnarchiveNote(card.id)
-                  : handleArchiveNote(card.id)
+                note.archived
+                  ? handleUnarchiveNote(note.id)
+                  : handleArchiveNote(note.id)
               }
-              className='button__card'
+              className='note__button'
             >
-              {card.archived ? <IconArchive /> : <IconUnarchive />}
+              {note.archived ? <IconArchive /> : <IconUnarchive />}
             </button>
           )}
         </div>
-        <div className='card__categories'>
-          {card.categories.map(category => (
-            <span className='card__category' key={category.id}>
+        <div className='note__categories'>
+          {note.categories.map(category => (
+            <span className='note__category' key={category.id}>
               {category.name}
             </span>
           ))}
         </div>
         {isEditing && (
-          <button className='button__cancel' onClick={handleCancel}>
+          <button className='note__button--cancel' onClick={handleCancel}>
             Cancel
           </button>
         )}

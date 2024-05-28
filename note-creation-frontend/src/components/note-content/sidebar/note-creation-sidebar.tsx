@@ -1,10 +1,10 @@
-import './aside.css'
+import './note-creation-sidebar.css'
 
 import CreateCategoryForm from './CreateCategoryForm'
 import CreateNoteForm from './CreateNoteForm'
-import { useStore } from '../../context/useContext'
+import { useStore } from '../../../context/useContext'
 
-export default function AsideCreateCard() {
+export default function NoteCreationSidebar() {
   const { isEditing } = useStore()
 
   return (

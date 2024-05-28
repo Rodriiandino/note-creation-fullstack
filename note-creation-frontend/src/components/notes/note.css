@@ -1,0 +1,114 @@
+.note {
+  position: relative;
+  background: hsl(var(--card));
+  display: block;
+  height: 17rem;
+  width: 17rem;
+  padding: 1rem;
+  box-shadow: 5px 5px 7px rgba(112, 109, 83, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0 2rem 0 0;
+}
+
+.note__button {
+  background: transparent;
+  border: none;
+}
+
+.note__button:hover {
+  background-color: transparent;
+  color: hsl(var(--secondary));
+  transform: scale(1.1);
+}
+
+.note__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note__header h3 {
+  width: 85%;
+  font-size: var(--step-0);
+  color: hsl(var(--primary-foreground));
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.note__header button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+.note__section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.note__section p {
+  width: 100%;
+  font-size: var(--step-0);
+  color: hsl(var(--secondary));
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.note__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.note__categories {
+  display: flex;
+  gap: 0.2rem;
+  flex-wrap: wrap;
+  overflow: hidden;
+}
+
+.note__category {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 0.1em;
+  border-radius: var(--radius);
+}
+
+.note__not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--step-2);
+  color: hsl(var(--primary-foreground));
+  transform: rotate(-10deg);
+}
+
+.note__button--cancel {
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: hsl(var(--danger));
+  color: hsl(var(--danger-foreground));
+  padding: 0.2em 0.5em;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: scale 0.3s;
+}
+
+.note__button--cancel:hover {
+  scale: 1.1;
+}

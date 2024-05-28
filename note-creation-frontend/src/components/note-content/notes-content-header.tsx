@@ -1,11 +1,10 @@
-import './section.css'
 import { IconArchive, IconFilter, IconUnarchive } from '../icons'
 import { useStore } from '../../context/useContext'
 import { useState } from 'react'
 import { CardType } from '../../types/card-types'
 import { useNotes } from '../hooks/useNotes'
 
-export default function HeaderSection() {
+export default function NotesContentHeader() {
   const { showArchive, setShowArchive, setNotes, categories } = useStore()
   const [filter, setFilter] = useState('')
   const [showFilter, setShowFilter] = useState(false)

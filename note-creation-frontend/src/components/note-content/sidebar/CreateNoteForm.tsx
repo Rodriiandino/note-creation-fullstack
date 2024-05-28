@@ -1,11 +1,10 @@
-import './aside.css'
 import { useEffect } from 'react'
-import { useStore } from '../../context/useContext'
-import { useCategory } from '../hooks/useCategory'
-import SuccessError from '../success-error'
-import { useNotes } from '../hooks/useNotes'
-import { IconTrash, IconPen } from '../icons'
-import { CategoryType } from '../../types/categories-type'
+import SuccessError from '../../success-error'
+import { useNotes } from '../../hooks/useNotes'
+import { CategoryType } from '../../../types/categories-type'
+import { IconPen, IconTrash } from '../../icons'
+import { useStore } from '../../../context/useContext'
+import { useCategory } from '../../hooks/useCategory'
 
 export default function CreateNoteForm() {
   const { categories, isEditing, cardEditing, notes } = useStore()

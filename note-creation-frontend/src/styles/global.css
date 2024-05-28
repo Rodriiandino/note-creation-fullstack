@@ -32,6 +32,7 @@
   --step-3: clamp(1.9438rem, 1.7707rem + 0.8652vw, 2.4413rem);
   --step-4: clamp(2.3325rem, 2.0823rem + 1.2511vw, 3.0519rem);
   --step-5: clamp(2.7994rem, 2.4461rem + 1.7663vw, 3.815rem);
+  --step-6: clamp(3.3593rem, 2.8769rem + 2.4517vw, 4.7688rem);
 }
 
 *,
@@ -117,21 +118,22 @@ aside {
 
 button {
   cursor: pointer;
-  background: hsl(var(--background));
-  color: hsl(var(--text));
+  background: hsl(var(--foreground));
+  color: hsl(var(--secondary));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
-  transition: background-color 0.2s;
+  transition: all 0.3s;
   padding: 0.2rem 0.5rem;
 }
 
 button:hover {
   background: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
 }
 
 button:disabled {
   background: hsl(var(--muted));
-  color: hsl(var(--text));
+  color: hsl(var(--primary));
   cursor: not-allowed;
 }
 
@@ -142,9 +144,9 @@ a {
   font-weight: 700;
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
-  color: hsl(var(--text));
+  color: hsl(var(--primary));
   text-decoration: none;
-  transition: background-color 0.2s;
+  transition: background-color 0.3s;
   background: hsl(var(--background));
 }
 
@@ -162,7 +164,7 @@ form {
 
 input {
   background: hsl(var(--background));
-  color: hsl(var(--text));
+  color: hsl(var(--primary));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
   padding: 0.5rem;
@@ -170,7 +172,7 @@ input {
 
 textarea {
   background: hsl(var(--background));
-  color: hsl(var(--text));
+  color: hsl(var(--primary));
   border: 1px solid hsl(var(--border));
   border-radius: var(--radius);
   resize: none;

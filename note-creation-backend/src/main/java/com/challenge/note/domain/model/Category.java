@@ -21,8 +21,12 @@ public class Category {
     private String name;
     @ManyToMany(mappedBy = "categories")
     private Set<Note> notes;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Category(CreateCategoryDTO categoryDTO) {
         this.name = categoryDTO.name();
+        this.user = new User();
     }
 }

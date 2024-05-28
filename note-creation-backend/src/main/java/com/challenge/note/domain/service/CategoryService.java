@@ -3,11 +3,15 @@ package com.challenge.note.domain.service;
 import com.challenge.note.domain.dto.category.CreateCategoryDTO;
 import com.challenge.note.domain.dto.category.UpdateCategoryDTO;
 import com.challenge.note.domain.model.Category;
+import com.challenge.note.domain.model.User;
 import com.challenge.note.domain.repository.CategoryRepository;
+import com.challenge.note.domain.repository.UserRepository;
 import com.challenge.note.infra.exceptions.CustomExceptionResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,18 +21,31 @@ import java.util.List;
 @Transactional
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, UserRepository userRepository) {
         this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
 
     public Category createCategory(CreateCategoryDTO categoryDTO) {
         try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+            if (authentication == null) {
+                throw new CustomExceptionResponse("User not authenticated", 401);
+            }
+
+            String username = authentication.getName();
+            User user = userRepository.findByUsername(username);
+
             Category category = new Category(categoryDTO);
             if (categoryRepository.existsByName(category.getName())) {
                 throw new CustomExceptionResponse("Category already exists", 400);
             }
+
+            category.setUser(user);
             return categoryRepository.save(category);
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to create category", 500);
@@ -42,6 +59,20 @@ public class CategoryService {
             throw new CustomExceptionResponse("Error to get all categories", 500);
         }
     }
+
+    public List<Category> getCategoriesByUser() {
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            if (authentication == null) {
+                throw new CustomExceptionResponse("User not authenticated", 401);
+            }
+            String username = authentication.getName();
+            return categoryRepository.findByUserUsername(username);
+        } catch (DataAccessException e) {
+            throw new CustomExceptionResponse("Error to get categories by user", 500);
+        }
+    }
+
 
     public Category getCategoryById(Long categoryId) {
         try {

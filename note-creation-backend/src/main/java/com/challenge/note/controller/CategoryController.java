@@ -37,10 +37,11 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    @Operation(summary = "Create a new category", description = "Create a new category with a name and description")
+    @Operation(summary = "Create a new category", description = "Create a new category with a name")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Category created successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CategoryDetailsDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "401", description = "Unauthorized.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<CategoryDetailsDTO> createCategory(@RequestBody @Valid CreateCategoryDTO createCategoryDTO) {
@@ -58,6 +59,24 @@ public class CategoryController {
     })
     public ResponseEntity<List<CategoryDetailsDTO>> getAllCategories() {
         List<Category> categories = categoryService.getAllCategories();
+        if (categories.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        List<CategoryDetailsDTO> categoriesDetailsDTO = CategoryDetailsDTO.fromCategoriesToDTO(categories);
+        return ResponseEntity.status(HttpStatus.OK).body(categoriesDetailsDTO);
+    }
+
+    @GetMapping("/user")
+    @Operation(summary = "Get Categories by User", description = "Retrieve a list of categories by user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Categories found.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CategoryDetailsDTO.class)))),
+            @ApiResponse(responseCode = "204", description = "No Content."),
+            @ApiResponse(responseCode = "401", description = "Unauthorized.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
+    })
+    public ResponseEntity<List<CategoryDetailsDTO>> getCategoriesByUser() {
+        List<Category> categories = categoryService.getCategoriesByUser();
+
         if (categories.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }

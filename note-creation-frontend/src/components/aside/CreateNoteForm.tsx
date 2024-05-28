@@ -5,9 +5,10 @@ import { useCategory } from '../hooks/useCategory'
 import SuccessError from '../success-error'
 import { useNotes } from '../hooks/useNotes'
 import { IconTrash, IconPen } from '../icons'
+import { CategoryType } from '../../types/categories-type'
 
 export default function CreateNoteForm() {
-  const { categories, isEditing, cardEditing } = useStore()
+  const { categories, isEditing, cardEditing, notes } = useStore()
   const {
     card,
     cardEdit,
@@ -25,6 +26,12 @@ export default function CreateNoteForm() {
   useEffect(() => {
     getAllCategories()
   }, [])
+
+  const categoryHasNote = (category: CategoryType) => {
+    return notes?.some(note =>
+      note.categories.some(cat => cat.id === category.id)
+    )
+  }
 
   useEffect(() => {
     if (isEditing) {
@@ -87,10 +94,11 @@ export default function CreateNoteForm() {
                 <button>
                   <IconPen />
                 </button>
-                <button>
-                  <IconTrash
-                    onClick={e => handleDeleteCategory(e, category.id)}
-                  />
+                <button
+                  onClick={e => handleDeleteCategory(e, category.id)}
+                  disabled={categoryHasNote(category)}
+                >
+                  <IconTrash />
                 </button>
               </div>
             </div>

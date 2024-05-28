@@ -7,7 +7,7 @@ import {
   createCardApi,
   deleteCardApi,
   getArchivedUserCardsApi,
-  getCardUserApi,
+  getUserCardApi,
   getUnarchivedUserCardsApi,
   unarchiveCardApi,
   updateCardApi
@@ -71,7 +71,7 @@ export function useNotes() {
 
   const getUserNotes = async () => {
     try {
-      const data = await getCardUserApi()
+      const data = await getUserCardApi()
       setNotes(data)
       return data
     } catch (error: any) {
@@ -88,7 +88,7 @@ export function useNotes() {
       await createCardApi(card)
 
       setSuccess('Note created')
-      const data = await getCardUserApi()
+      const data = await getUserCardApi()
       setNotes(data)
       setCard({ title: '', content: '', categories: [] })
     } catch (error: any) {
@@ -104,7 +104,7 @@ export function useNotes() {
     try {
       await updateCardApi(cardEdit)
       setSuccess('Note updated')
-      const data = await getCardUserApi()
+      const data = await getUserCardApi()
       setNotes(data)
       setIsEditing(false)
       setCardEdit({ id: 0, title: '', content: '', categories: [] })
@@ -120,7 +120,7 @@ export function useNotes() {
     try {
       await deleteCardApi(cardId)
       setSuccess('Note deleted')
-      const data = await getCardUserApi()
+      const data = await getUserCardApi()
       setNotes(data)
     } catch (error: any) {
       setError(error)
@@ -134,7 +134,7 @@ export function useNotes() {
     try {
       await archiveCardApi(cardId)
       setSuccess('Note archived')
-      const data = await getCardUserApi()
+      const data = await getUserCardApi()
       setNotes(data)
     } catch (error: any) {
       setError(error)
@@ -148,7 +148,7 @@ export function useNotes() {
     try {
       await unarchiveCardApi(cardId)
       setSuccess('Note unarchived')
-      const data = await getCardUserApi()
+      const data = await getUserCardApi()
       setNotes(data)
     } catch (error: any) {
       setError(error)

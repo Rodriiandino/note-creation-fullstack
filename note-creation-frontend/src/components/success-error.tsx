@@ -27,9 +27,22 @@ export default function SuccessError({
     <>
       {showMessage && (
         <div className={`account__${error.status !== 0 ? 'error' : 'success'}`}>
-          {error.status !== 0
-            ? error.fieldErrors.map((err, i) => <p key={i}>{err.message}</p>)
-            : success}
+          {error.status !== 0 ? (
+            error.message && error.fieldErrors ? (
+              <div>
+                <p>{error.message}</p>
+                {error.fieldErrors.map((err, i) => (
+                  <p key={i}>{err.message}</p>
+                ))}
+              </div>
+            ) : error.message ? (
+              <p>{error.message}</p>
+            ) : (
+              <p>Something went wrong</p>
+            )
+          ) : (
+            success
+          )}
         </div>
       )}
     </>

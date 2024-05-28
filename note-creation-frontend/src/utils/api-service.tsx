@@ -35,8 +35,8 @@ export const createCategoryApi = async (category: CreateCategory) => {
   return response
 }
 
-export const getAllCategoriesApi = async () => {
-  const response = await fetchApi({ path: '/categories/all' })
+export const getUserCategoriesApi = async () => {
+  const response = await fetchApi({ path: '/categories/user' })
 
   return response
 }
@@ -60,7 +60,7 @@ export const updateCategoryApi = async (category: CategoryType) => {
   return response
 }
 
-export const getCardUserApi = async () => {
+export const getUserCardApi = async () => {
   const response = await fetchApi({ path: '/notes/user' })
 
   return response

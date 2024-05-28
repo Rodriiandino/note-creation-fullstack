@@ -3,7 +3,7 @@ import { useStore } from '../../context/useContext'
 import {
   createCategoryApi,
   deleteCategoryApi,
-  getAllCategoriesApi,
+  getUserCategoriesApi,
   updateCategoryApi
 } from '../../utils/api-service'
 import { error } from '../../types/error-type'
@@ -21,7 +21,7 @@ export function useCategory() {
 
   const getAllCategories = async () => {
     try {
-      const data = await getAllCategoriesApi()
+      const data = await getUserCategoriesApi()
       setCategories(data)
     } catch (error: any) {
       setError(error)
@@ -39,7 +39,7 @@ export function useCategory() {
       })
 
       setSuccess(`Category '${categoryName}' created`)
-      const data = await getAllCategoriesApi()
+      const data = await getUserCategoriesApi()
       setCategories(data)
       setCategoryName('')
     } catch (error: any) {
@@ -54,7 +54,7 @@ export function useCategory() {
     try {
       await updateCategoryApi(category)
       setSuccess(`Category updated`)
-      const data = await getAllCategoriesApi()
+      const data = await getUserCategoriesApi()
       setCategories(data)
     } catch (error: any) {
       setError(error)
@@ -72,7 +72,7 @@ export function useCategory() {
     try {
       await deleteCategoryApi(categoryId)
       setSuccess('Category deleted')
-      const data = await getAllCategoriesApi()
+      const data = await getUserCategoriesApi()
       setCategories(data)
     } catch (error: any) {
       setError(error)

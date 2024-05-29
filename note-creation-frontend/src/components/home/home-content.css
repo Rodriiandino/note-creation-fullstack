@@ -1,8 +1,16 @@
 .home__content {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.home__header,
+.home__title,
+.home__section,
+.home__footer {
+  z-index: 100;
 }
 
 .home__header {
@@ -10,10 +18,10 @@
 }
 
 .home__title {
-  grid-area: Title;
   font-size: var(--step-6);
   color: hsl(var(--primary));
   font-family: var(--font-segoe);
+  text-align: center;
 }
 
 .home__section {
@@ -38,4 +46,14 @@
 .home__footer a {
   font-size: var(--step-0);
   padding: 0.5rem 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .home__title {
+    font-size: var(--step-5);
+  }
+
+  .home__section p {
+    font-size: var(--step--1);
+  }
 }

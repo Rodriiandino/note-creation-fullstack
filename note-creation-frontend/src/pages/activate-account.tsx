@@ -4,6 +4,7 @@ import { error } from '../types/error-type'
 import fetchApi from '../utils/fetch-api'
 import SuccessError from '../components/success-error'
 import Layout from '../components/layout'
+import NoteDecor from '../components/notes/note-decor'
 
 export default function ActivateAccount() {
   const [code, setCode] = useState<string[]>(['', '', '', '', '', ''])
@@ -194,6 +195,20 @@ export default function ActivateAccount() {
         </footer>
         <SuccessError error={error} success={success} />
       </div>
+      <NoteDecor
+        content='Almost done!'
+        color='pink-light'
+        grado={-6}
+        bottom={4}
+        right={2}
+      />
+      <NoteDecor
+        content='One more step'
+        color='yellow'
+        grado={-12}
+        top={4}
+        left={2}
+      />
     </Layout>
   )
 }

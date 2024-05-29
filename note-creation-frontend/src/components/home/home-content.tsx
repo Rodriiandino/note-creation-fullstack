@@ -28,6 +28,20 @@ export default function HomeContent() {
           </>
         )}
       </footer>
+      <NoteDecor
+        content='Your adventure awaits'
+        color='blue-light'
+        grado={10}
+        bottom={-6}
+        right={2}
+      />
+      <NoteDecor
+        content='Ready, set, go!'
+        color='pink'
+        grado={-12}
+        top={-6}
+        left={2}
+      />
     </div>
   )
 }

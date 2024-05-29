@@ -13,6 +13,10 @@ type StoreType = {
   setIsEditing: (isEditing: boolean) => void
   cardEditing: CardType | null
   setCardEditing: (card: CardType | null) => void
+  isEditingCategory: boolean
+  setIsEditingCategory: (isEditingCategory: boolean) => void
+  categoryEditing: CategoryType | null
+  setCategoryEditing: (category: CategoryType | null) => void
 }
 
 export const useStore = create<StoreType>(set => ({
@@ -25,7 +29,11 @@ export const useStore = create<StoreType>(set => ({
   isEditing: false,
   setIsEditing: isEditing => set({ isEditing }),
   cardEditing: null,
-  setCardEditing: cardEditing => set({ cardEditing })
+  setCardEditing: cardEditing => set({ cardEditing }),
+  isEditingCategory: false,
+  setIsEditingCategory: isEditingCategory => set({ isEditingCategory }),
+  categoryEditing: null,
+  setCategoryEditing: categoryEditing => set({ categoryEditing })
 }))
 
 type AuthStoreType = {

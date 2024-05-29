@@ -5,7 +5,7 @@ import CreateNoteForm from './CreateNoteForm'
 import { useStore } from '../../../context/useContext'
 
 export default function NoteCreationSidebar() {
-  const { isEditing } = useStore()
+  const { isEditing, isEditingCategory } = useStore()
 
   return (
     <aside>
@@ -15,7 +15,7 @@ export default function NoteCreationSidebar() {
       </div>
 
       <div className='aside__create'>
-        <h2>Create Category</h2>
+        <h2>{isEditingCategory ? 'Edit Category' : 'Create Category'}</h2>
         <CreateCategoryForm />
       </div>
     </aside>

@@ -5,11 +5,10 @@
   height: 17rem;
   width: 17rem;
   padding: 1rem;
-  box-shadow: 5px 5px 7px rgba(112, 109, 83, 0.7);
+  box-shadow: 5px 5px 7px rgba(104, 104, 103, 0.7);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 0 2rem 0 0;
 }
 
 .note__button {
@@ -111,4 +110,30 @@
 
 .note__button--cancel:hover {
   scale: 1.1;
+}
+
+.note__decor {
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  text-align: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--step-1);
+  color: hsl(var(--secondary));
+}
+
+@media screen and (max-width: 768px) {
+  .note__decor {
+    width: 8rem;
+    height: 8rem;
+    font-size: var(--step-0);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .note__decor {
+    width: 6rem;
+    height: 6rem;
+  }
 }

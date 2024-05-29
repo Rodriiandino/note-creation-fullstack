@@ -1,7 +1,7 @@
 :root {
   --background: 224 71.4% 4.1%;
   --foreground: 210 20% 98%;
-  --card: 60, 100%, 90%;
+  --card: 61, 100%, 81%;
   --popover: 224 71.4% 4.1%;
   --popover-foreground: 210 20% 98%;
   --primary: 210 20% 98%;
@@ -23,6 +23,12 @@
   --font-segoe: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   --max-width: 1400px;
+
+  --card-variant-pink: 336, 100%, 70%;
+  --card-variant-pink-light: 333, 100%, 75%;
+  --card-variant-blue-light: 181, 100%, 74%;
+  --card-variant-yellow: 57, 100%, 63%;
+  --card-variant-yellow-light: 61, 100%, 81%;
 
   --step--2: clamp(0.7813rem, 0.7747rem + 0.0326vw, 0.8rem);
   --step--1: clamp(0.9375rem, 0.9158rem + 0.1087vw, 1rem);

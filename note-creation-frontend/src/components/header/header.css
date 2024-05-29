@@ -6,6 +6,12 @@
   gap: 1.5rem;
 }
 
+.header,
+.header__logo,
+.header__user {
+  z-index: 100;
+}
+
 .header__logo {
   width: 265px;
   display: flex;
@@ -14,6 +20,7 @@
   border: none;
   border-radius: 0;
   border-right: 1px solid hsl(var(--primary));
+  background: transparent;
 }
 
 .header__logo:hover {

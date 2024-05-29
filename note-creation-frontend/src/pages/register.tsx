@@ -3,6 +3,7 @@ import LinkBack from '../components/link-back'
 import { useAuth } from '../components/hooks/useAuth'
 import SuccessError from '../components/success-error'
 import Layout from '../components/layout'
+import NoteDecor from '../components/notes/note-decor'
 
 export default function Register() {
   const { error, success, register, handleChanges, registerUser } = useAuth()
@@ -48,6 +49,14 @@ export default function Register() {
           Already have an account? <Link to='/login'>Login</Link>
         </small>
       </form>
+      <NoteDecor
+        content='Join us!'
+        color='pink-light'
+        grado={-6}
+        bottom={1}
+        right={2}
+      />
+      <NoteDecor content='Hello' color='yellow' grado={-12} top={1} left={2} />
     </Layout>
   )
 }

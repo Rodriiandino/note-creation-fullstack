@@ -7,7 +7,14 @@ import { useStore } from '../../../context/useContext'
 import { useCategory } from '../../hooks/useCategory'
 
 export default function CreateNoteForm() {
-  const { categories, isEditing, cardEditing, notes } = useStore()
+  const {
+    categories,
+    isEditing,
+    cardEditing,
+    notes,
+    setIsEditingCategory,
+    setCategoryEditing
+  } = useStore()
   const {
     card,
     cardEdit,
@@ -42,6 +49,11 @@ export default function CreateNoteForm() {
       })
     }
   }, [isEditing])
+
+  const handleEditCategory = (category: CategoryType) => {
+    setIsEditingCategory(true)
+    setCategoryEditing(category)
+  }
 
   return (
     <form
@@ -90,7 +102,7 @@ export default function CreateNoteForm() {
               />
               <label htmlFor={category.name}>{category.name}</label>
               <div className='checkbox__actions'>
-                <button>
+                <button onClick={() => handleEditCategory(category)}>
                   <IconPen />
                 </button>
                 <button

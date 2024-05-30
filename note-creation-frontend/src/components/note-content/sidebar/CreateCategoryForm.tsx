@@ -5,14 +5,14 @@ import { useStore } from '../../../context/useContext'
 export default function CreateCategoryForm() {
   const {
     categoryName,
-    categoryEditing,
     handleCreateCategory,
     handleUpdateCategory,
     error,
     success,
     handleChanges
   } = useCategory()
-  const { isEditingCategory } = useStore()
+
+  const { isEditingCategory, categoryEditing } = useStore()
 
   return (
     <form
@@ -27,7 +27,7 @@ export default function CreateCategoryForm() {
           placeholder={
             isEditingCategory ? 'Edit your category' : 'Make a category'
           }
-          value={isEditingCategory ? categoryEditing.name : categoryName}
+          value={isEditingCategory ? categoryEditing?.name : categoryName}
           onChange={e =>
             handleChanges(e, isEditingCategory ? 'edit' : 'create')
           }

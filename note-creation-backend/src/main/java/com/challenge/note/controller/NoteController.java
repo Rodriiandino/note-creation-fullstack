@@ -40,6 +40,7 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Note created successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "User or Category not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -54,6 +55,7 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "204", description = "No Content."),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<NoteDetailsDTO>> getAllNotes() {
@@ -71,6 +73,7 @@ public class NoteController {
             @ApiResponse(responseCode = "200", description = "Notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "User not authenticated.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<NoteDetailsDTO>> getAllNotesByUser() {
@@ -87,6 +90,7 @@ public class NoteController {
     @Operation(summary = "Get Note by ID", description = "Retrieve a note by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Note found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Note not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -100,6 +104,7 @@ public class NoteController {
     @Operation(summary = "Update Note", description = "Update a note by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Note updated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Note not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -113,6 +118,7 @@ public class NoteController {
     @Operation(summary = "Delete Note by ID", description = "Delete a note by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Note deleted successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomDeleteResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Note not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -127,6 +133,7 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Note archived successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "400", description = "Note already archived.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Note not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -141,6 +148,7 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Note unarchived successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "400", description = "Note already unarchived.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Note not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -155,6 +163,7 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Archived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "204", description = "No Content."),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<NoteDetailsDTO>> getAllArchivedNotes() {
@@ -171,6 +180,7 @@ public class NoteController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Unarchived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "204", description = "No Content."),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<NoteDetailsDTO>> getAllUnarchivedNotes() {
@@ -188,6 +198,7 @@ public class NoteController {
             @ApiResponse(responseCode = "200", description = "Archived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "User not authenticated.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<NoteDetailsDTO>> getArchivedNotesByUser() {
@@ -205,6 +216,7 @@ public class NoteController {
             @ApiResponse(responseCode = "200", description = "Archived notes found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = NoteDetailsDTO.class))),
             @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "User not authenticated.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<NoteDetailsDTO>> getUnarchivedNotesByUser() {

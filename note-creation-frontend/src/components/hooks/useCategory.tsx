@@ -7,15 +7,15 @@ import {
   updateCategoryApi
 } from '../../utils/api-service'
 import { error } from '../../types/error-type'
-import { CategoryType } from '../../types/categories-type'
 
 export function useCategory() {
-  const { setCategories, setIsEditingCategory } = useStore()
+  const {
+    setCategories,
+    setIsEditingCategory,
+    categoryEditing,
+    setCategoryEditing
+  } = useStore()
   const [categoryName, setCategoryName] = useState('')
-  const [categoryEditing, setCategoryEditing] = useState<CategoryType>({
-    id: 0,
-    name: ''
-  })
   const [success, setSuccess] = useState('')
   const [error, setError] = useState<error>({
     message: '',
@@ -28,7 +28,11 @@ export function useCategory() {
     if (type === 'create') {
       setCategoryName(value)
     } else {
-      setCategoryEditing({ ...categoryEditing, name: value })
+      if (!categoryEditing) return
+      setCategoryEditing({
+        ...categoryEditing,
+        name: value
+      })
     }
   }
 
@@ -66,11 +70,13 @@ export function useCategory() {
     setSuccess('')
 
     try {
+      if (!categoryEditing) return
       await updateCategoryApi(categoryEditing)
       setSuccess(`Category updated`)
       const data = await getUserCategoriesApi()
       setCategories(data)
       setIsEditingCategory(false)
+      setCategoryEditing(null)
     } catch (error: any) {
       setError(error)
     }
@@ -96,7 +102,6 @@ export function useCategory() {
 
   return {
     categoryName,
-    categoryEditing,
     handleChanges,
     setCategoryName,
     handleCreateCategory,

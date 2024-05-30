@@ -39,6 +39,7 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Users found.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = UserDetailsDTO.class)))),
             @ApiResponse(responseCode = "204", description = "No Content."),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<UserDetailsDTO>> getAllUsers() {
@@ -54,6 +55,7 @@ public class UserController {
     @Operation(summary = "Get User by Username", description = "Retrieve a user by its username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetailsDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "User not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -67,6 +69,7 @@ public class UserController {
     @Operation(summary = "Update User by Username", description = "Update a user by its username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User updated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserDetailsDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "User not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<UserDetailsDTO> updateUserByUsername(@PathVariable String username, @RequestBody @Valid UpdateUserDTO updateUserDTO) {
@@ -79,6 +82,7 @@ public class UserController {
     @Operation(summary = "Delete User by Username", description = "Delete a user by its username.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "User deleted successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomDeleteResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "User not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Failed to delete user.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })

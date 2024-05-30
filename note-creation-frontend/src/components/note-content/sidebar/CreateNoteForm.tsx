@@ -50,9 +50,13 @@ export default function CreateNoteForm() {
     }
   }, [isEditing])
 
-  const handleEditCategory = (category: CategoryType) => {
-    setIsEditingCategory(true)
+  const handleEditCategory = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    category: CategoryType
+  ) => {
+    e.preventDefault()
     setCategoryEditing(category)
+    setIsEditingCategory(true)
   }
 
   return (
@@ -102,7 +106,7 @@ export default function CreateNoteForm() {
               />
               <label htmlFor={category.name}>{category.name}</label>
               <div className='checkbox__actions'>
-                <button onClick={() => handleEditCategory(category)}>
+                <button onClick={e => handleEditCategory(e, category)}>
                   <IconPen />
                 </button>
                 <button

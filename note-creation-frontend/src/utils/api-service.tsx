@@ -54,7 +54,9 @@ export const updateCategoryApi = async (category: CategoryType) => {
   const response = await fetchApi({
     path: `/categories/${category.id}`,
     method: 'PUT',
-    body: category.name
+    body: {
+      name: category.name
+    }
   })
 
   return response

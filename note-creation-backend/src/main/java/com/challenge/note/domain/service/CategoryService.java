@@ -41,7 +41,7 @@ public class CategoryService {
             User user = userRepository.findByUsername(username);
 
             Category category = new Category(categoryDTO);
-            if (categoryRepository.existsByName(category.getName())) {
+            if (categoryRepository.existsByNameAndUser(category.getName(), user)) {
                 throw new CustomExceptionResponse("Category already exists", 400);
             }
 

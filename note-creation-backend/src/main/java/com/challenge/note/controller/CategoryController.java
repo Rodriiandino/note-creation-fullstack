@@ -42,6 +42,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "201", description = "Category created successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CategoryDetailsDTO.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "401", description = "Unauthorized.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<CategoryDetailsDTO> createCategory(@RequestBody @Valid CreateCategoryDTO createCategoryDTO) {
@@ -55,6 +56,7 @@ public class CategoryController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Categories found.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CategoryDetailsDTO.class)))),
             @ApiResponse(responseCode = "204", description = "No Content."),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<CategoryDetailsDTO>> getAllCategories() {
@@ -72,6 +74,7 @@ public class CategoryController {
             @ApiResponse(responseCode = "200", description = "Categories found.", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = CategoryDetailsDTO.class)))),
             @ApiResponse(responseCode = "204", description = "No Content."),
             @ApiResponse(responseCode = "401", description = "Unauthorized.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
     public ResponseEntity<List<CategoryDetailsDTO>> getCategoriesByUser() {
@@ -89,6 +92,7 @@ public class CategoryController {
     )
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CategoryDetailsDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Category not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -102,6 +106,7 @@ public class CategoryController {
     @Operation(summary = "Update Category", description = "Update a category by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category updated successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CategoryDetailsDTO.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Category not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })
@@ -115,6 +120,7 @@ public class CategoryController {
     @Operation(summary = "Delete Category by ID", description = "Delete a category by its ID.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Category deleted successfully.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomDeleteResponse.class))),
+            @ApiResponse(responseCode = "403", description = "Forbidden."),
             @ApiResponse(responseCode = "404", description = "Category not found.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class))),
             @ApiResponse(responseCode = "500", description = "Internal Server Error.", content = @Content(mediaType = "application/json", schema = @Schema(implementation = CustomError.class)))
     })

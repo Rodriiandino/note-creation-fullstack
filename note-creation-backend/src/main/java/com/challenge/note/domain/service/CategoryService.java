@@ -103,9 +103,13 @@ public class CategoryService {
 
     public void deleteCategoryById(Long categoryId) {
         try {
-            if (!categoryRepository.existsById(categoryId)) {
-                throw new EntityNotFoundException("Category not found: " + categoryId);
+            Category category = categoryRepository.findById(categoryId)
+                    .orElseThrow(() -> new EntityNotFoundException("Category not found: " + categoryId));
+
+            if (!category.getNotes().isEmpty()) {
+                throw new CustomExceptionResponse("Category has notes, delete them first", 400);
             }
+
             categoryRepository.deleteById(categoryId);
         } catch (DataAccessException e) {
             throw new CustomExceptionResponse("Error to delete category by ID", 500);

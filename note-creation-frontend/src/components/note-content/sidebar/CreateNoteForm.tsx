@@ -11,7 +11,6 @@ export default function CreateNoteForm() {
     categories,
     isEditing,
     cardEditing,
-    notes,
     setIsEditingCategory,
     setCategoryEditing
   } = useStore()
@@ -32,12 +31,6 @@ export default function CreateNoteForm() {
   useEffect(() => {
     getAllCategories()
   }, [])
-
-  const categoryHasNote = (category: CategoryType) => {
-    return notes?.some(note =>
-      note.categories.some(cat => cat.id === category.id)
-    )
-  }
 
   useEffect(() => {
     if (isEditing) {
@@ -109,19 +102,16 @@ export default function CreateNoteForm() {
                 <button onClick={e => handleEditCategory(e, category)}>
                   <IconPen />
                 </button>
-                <button
-                  onClick={e => handleDeleteCategory(e, category.id)}
-                  disabled={categoryHasNote(category)}
-                >
+                <button onClick={e => handleDeleteCategory(e, category.id)}>
                   <IconTrash />
                 </button>
               </div>
             </div>
           ))}
-          <SuccessError success={success} error={error} />
         </div>
       </div>
       <button type='submit'>{isEditing ? 'Edit' : 'Create'}</button>
+      <SuccessError success={success} error={error} />
       <SuccessError success={noteSuccess} error={noteError} />
     </form>
   )

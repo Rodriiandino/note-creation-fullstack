@@ -10,6 +10,7 @@ import com.challenge.note.infra.exceptions.CustomExceptionResponse;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,7 @@ public class CategoryService {
         }
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     public List<Category> getAllCategories() {
         try {
             return categoryRepository.findAll();

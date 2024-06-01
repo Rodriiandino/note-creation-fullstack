@@ -47,7 +47,7 @@ public class AuthenticationService {
         try {
             User newUser = new User(createUserDTO);
             newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
-            Role role = roleRepository.findByName("USER").orElseThrow(() -> new EntityNotFoundException("Role 'USER' not found"));
+            Role role = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new EntityNotFoundException("Role 'ROLE_USER' not found"));
             newUser.setRoles(List.of(role));
             userRepository.save(newUser);
             sendValidationEmail(newUser);

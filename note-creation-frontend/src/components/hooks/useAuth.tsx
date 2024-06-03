@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { login, register, token } from '../../types/account-types'
 import { error } from '../../types/error-type'
 import {
@@ -13,6 +13,8 @@ import { registerUserApi, loginUserApi } from '../../utils/api-service'
 
 export function useAuth() {
   const navigate = useNavigate()
+  const location = useLocation()
+
   const [loginUser, setLoginUser] = useState<login>({
     username: '',
     password: ''
@@ -86,19 +88,23 @@ export function useAuth() {
       navigate('/')
     }
   }
+
   const checkAuthentication = useCallback(() => {
     const token = getToken()
-    if (token && isTokenExpired(token)) {
-      removeToken()
-      setIsAuth(false)
-      navigate('/')
-    } else if (token && !isTokenExpired(token)) {
-      setIsAuth(true)
+    const isAuth = token && !isTokenExpired(token)
+
+    setIsAuth(!!isAuth)
+
+    if (isAuth) {
+      if (location.pathname === '/login' || location.pathname === '/register') {
+        navigate('/notes')
+      }
     } else {
-      setIsAuth(false)
-      navigate('/')
+      if (location.pathname !== '/login' && location.pathname !== '/register') {
+        navigate('/')
+      }
     }
-  }, [navigate])
+  }, [location.pathname, navigate])
 
   return {
     login,

@@ -4,9 +4,21 @@ import { useAuth } from '../components/hooks/useAuth'
 import SuccessError from '../components/success-error'
 import Layout from '../components/layout'
 import NoteDecor from '../components/notes/note-decor'
+import { useEffect } from 'react'
 
 export default function Register() {
-  const { error, success, register, handleChanges, registerUser } = useAuth()
+  const {
+    error,
+    success,
+    register,
+    handleChanges,
+    registerUser,
+    checkAuthentication
+  } = useAuth()
+
+  useEffect(() => {
+    checkAuthentication()
+  }, [checkAuthentication])
 
   return (
     <Layout>

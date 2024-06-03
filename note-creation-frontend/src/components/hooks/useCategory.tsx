@@ -3,6 +3,7 @@ import { useStore } from '../../context/useContext'
 import {
   createCategoryApi,
   deleteCategoryApi,
+  getUserCardApi,
   getUserCategoriesApi,
   updateCategoryApi
 } from '../../utils/api-service'
@@ -13,7 +14,8 @@ export function useCategory() {
     setCategories,
     setIsEditingCategory,
     categoryEditing,
-    setCategoryEditing
+    setCategoryEditing,
+    setNotes
   } = useStore()
   const [categoryName, setCategoryName] = useState('')
   const [success, setSuccess] = useState('')
@@ -77,6 +79,8 @@ export function useCategory() {
       setCategories(data)
       setIsEditingCategory(false)
       setCategoryEditing(null)
+      const dataNote = await getUserCardApi()
+      setNotes(dataNote)
     } catch (error: any) {
       setError(error)
     }

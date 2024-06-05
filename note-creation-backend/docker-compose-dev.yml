@@ -1,0 +1,31 @@
+services:
+  mail-dev:
+    container_name: note-creation-maildev
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+  postgres:
+    container_name: note-creation-db
+    image: postgres:16.3-alpine
+    environment:
+      POSTGRES_USER: user_note_creation
+      POSTGRES_PASSWORD: 123456789
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: note_creation_db
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+    networks:
+      - note-creation-network
+    restart: always
+
+networks:
+  note-creation-network:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local

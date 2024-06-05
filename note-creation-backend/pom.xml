@@ -11,11 +11,11 @@
     <groupId>com.challenge</groupId>
     <artifactId>note-creation-backend</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>note-creation-backend</name>
     <description>note-creation-backend</description>
     <properties>
-        <java.version>21</java.version>
+        <java.version>17</java.version>
     </properties>
     <dependencies>
         <dependency>

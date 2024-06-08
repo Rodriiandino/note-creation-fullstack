@@ -50,8 +50,8 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   gap: 1rem;
+  overflow-y: auto;
 }
 
 .note__section p {
@@ -59,11 +59,6 @@
   font-size: var(--step-0);
   color: hsl(var(--secondary));
   word-wrap: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 .note__footer {
@@ -74,16 +69,18 @@
 
 .note__categories {
   display: flex;
+  height: 40px;
   gap: 0.2rem;
-  flex-wrap: wrap;
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .note__category {
-  background: hsl(var(--primary));
+  background: #99ffe09f;
   color: hsl(var(--primary-foreground));
-  padding: 0.1em;
+  padding: 0.4em;
   border-radius: var(--radius);
+  font-weight: 600;
 }
 
 .note__not-found {

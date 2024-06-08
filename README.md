@@ -1,6 +1,6 @@
-# Note Creation Challenge
+# Note Creation
 
-![850shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/c4bdea93-9fb9-4f38-bdac-0f6c6a4e39a9)
+![127shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/75a3a6a3-37d5-4a21-89a5-442690c72b8f)
 
 ## BackEnd
 
@@ -31,13 +31,13 @@
 
 ### 🌎 DataBase
 
-![Captura de pantalla 2024-05-09 122826](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/a4fb190e-0c45-4562-bb11-3945e779686e)
+![Captura de pantalla 2024-06-07 222132](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/c10b99e8-1079-4ab9-962b-cc00da5c930b)
 
 ### 📄 Documentation:
 
-![Captura de pantalla 2024-05-09 122144](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/eff18948-7cef-4940-9a63-63dea1d8e1ec)
-
-![Captura de pantalla 2024-05-09 122216](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/0fb6159b-3889-4c19-a027-e6e40e52c951)
+![Captura de pantalla 2024-06-07 221226](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/953db471-e9ca-4093-afa3-c7d7b5828850)
+![Captura de pantalla 2024-06-07 221216](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/58328975-494d-49f1-8bf5-fef2a5ac7cea)
+![Captura de pantalla 2024-06-07 221237](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/ecdc2256-07af-4372-8103-9a758f8015d5)
 
 API documentation is generated using SpringDoc, providing complete documentation for API endpoints and requests.
 
@@ -59,8 +59,7 @@ API documentation is generated using SpringDoc, providing complete documentation
 - Global State Management: Zustand provides a centralized state management solution.
 - Responsive Design: Ensures a seamless experience across various devices.
 
+https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/a6997c7a-cf24-4629-924b-c98a16246060
 
-https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/65b1aecc-263c-4a0c-b2ce-7614b3c89766
+![452shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/579dde5d-08fe-4cca-bc9d-35d116c9a7a8)
 
-
-![942shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/2181db80-843b-4f69-a63d-e8d280993ce5)

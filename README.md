@@ -15,7 +15,7 @@
 - Lombok for automatic methods and constructors.
 - PasswordEncoder with BCryptPasswordEncoder
 - JJWT API for authorization
-- Docker for mailDev image and the relatiional database PostgreSQL
+- Docker for mailDev image and the relational database PostgreSQL
 
 ### 🚀 Features:
 

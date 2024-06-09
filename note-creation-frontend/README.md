@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# FrontEnd
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## ✨ Technologies Used:
 
-Currently, two official plugins are available:
+- React for building user interfaces.
+- Vite as the build tool.
+- Zustand for global state management.
+- TypeScript
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![127shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/75a3a6a3-37d5-4a21-89a5-442690c72b8f)
 
-## Expanding the ESLint configuration
+## 🚀 Features:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- CRUD Operations: Users can create, read, update, and delete notes.
+- Category Management: Ability to create and manage categories for organizing notes.
+- Filtering and Sorting: Users can filter notes by category and search for specific notes.
+- Archiving Notes: Option to archive notes for better organization.
+- Global State Management: Zustand provides a centralized state management solution.
+- Responsive Design: Ensures a seamless experience across various devices.
 
-- Configure the top-level `parserOptions` property like this:
+https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/a6997c7a-cf24-4629-924b-c98a16246060
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+![452shots_so](https://github.com/Rodriiandino/note-creation-fullstack/assets/106351323/579dde5d-08fe-4cca-bc9d-35d116c9a7a8)

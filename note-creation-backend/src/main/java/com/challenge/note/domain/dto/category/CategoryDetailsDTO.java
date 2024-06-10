@@ -4,7 +4,6 @@ import com.challenge.note.domain.model.Category;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.StreamSupport;
 
 public record CategoryDetailsDTO(
         long id,

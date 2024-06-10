@@ -25,7 +25,7 @@ services:
     restart: always
 
   postgres:
-    container_name: note-creation-db
+    container_name: note-creation-db-prod
     image: postgres:16.3-alpine
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
